@@ -8,7 +8,7 @@ describe('normalizeLanding', () => {
   it('prefixes anchors so offerings never collide with section ids', () => {
     expect(landing.services[0]!.anchor).toBe('servicio-landing');
     expect(landing.maintenance.plans[0]!.anchor).toBe('plan-basico');
-    expect(landing.subscription.packages[0]!.anchor).toBe('paquete-landing-suscripcion');
+    expect(landing.subscription?.packages[0]!.anchor).toBe('paquete-landing-suscripcion');
   });
 
   it('resolves guide recommendations and required plans to in-page links', () => {
@@ -33,6 +33,22 @@ describe('normalizeLanding', () => {
     const href = decodeURIComponent(landing.services[0]!.inquiryHref);
     expect(href).toBe('https://wa.me/525512345678?text=Hola, me interesa Landing.');
     expect(landing.contact.whatsapp?.display).toBe('+52 55 1234 5678');
+  });
+
+  it('says what kind of plan a plan message is about', () => {
+    const maintenance = decodeURIComponent(landing.maintenance.plans[0]!.inquiryHref);
+    expect(maintenance).toContain('me interesa el plan de mantenimiento Plan basico.');
+    expect(decodeURIComponent(landing.seo.plans[0]!.inquiryHref)).toContain(
+      'me interesa el plan Plan seo-local.',
+    );
+
+    const email = normalizeLanding(
+      parseCatalog(),
+      parseConfig((raw) => ({ ...raw, contact: { ...raw.contact, whatsapp: '' } })),
+    ).maintenance.plans[0]!.inquiryHref;
+    expect(decodeURIComponent(email)).toContain(
+      'subject=Cotización: plan de mantenimiento Plan basico — ',
+    );
   });
 
   it('falls back to email and then to the contact section when channels are missing', () => {
@@ -60,6 +76,32 @@ describe('normalizeLanding', () => {
     expect(hidden.services[0]!.price).toBeUndefined();
     expect(hidden.addons.items[0]!.price).toBeUndefined();
     expect(hidden.seo.audit.price).toBeUndefined();
+  });
+
+  it('leaves a plan without price unpriced, for plans quoted case by case', () => {
+    const quoted = normalizeLanding(
+      parseCatalog((raw) => {
+        const [first, ...rest] = raw.maintenance.table.plans;
+        return {
+          ...raw,
+          maintenance: {
+            ...raw.maintenance,
+            table: { ...raw.maintenance.table, plans: [{ ...first!, price: undefined }, ...rest] },
+          },
+        };
+      }),
+      parseConfig(),
+    );
+    expect(quoted.maintenance.plans[0]!.price).toBeUndefined();
+    expect(quoted.maintenance.plans[1]!.price?.label).toBe('$100 – $200 /mes');
+  });
+
+  it('omits the subscription when the catalog offers none', () => {
+    const none = normalizeLanding(
+      parseCatalog((raw) => ({ ...raw, subscription: undefined })),
+      parseConfig(),
+    );
+    expect(none.subscription).toBeUndefined();
   });
 
   it('lists only the social networks that are configured, in a fixed order', () => {

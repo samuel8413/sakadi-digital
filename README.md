@@ -40,7 +40,7 @@ Dos archivos en `content/`:
 
 | Archivo            | Qué es                                                                                                |
 | ------------------ | ----------------------------------------------------------------------------------------------------- |
-| `catalog.json`     | Lo que se vende: servicios, planes, suscripción, complementos, proceso, preguntas frecuentes.         |
+| `catalog.json`     | Lo que se vende: servicios, planes, complementos, proceso, preguntas frecuentes.                      |
 | `site.config.json` | Quién vende y cómo se presenta: marca, WhatsApp y correo, redes, metadatos, cómo se muestran precios. |
 
 Después de editar, corre `npm run content:check`. El despliegue corre la misma revisión en modo `--strict` y **no publica** mientras haya errores bloqueantes (hoy: no hay WhatsApp ni correo configurado). Guía completa: [docs/CONTENT.md](docs/CONTENT.md).

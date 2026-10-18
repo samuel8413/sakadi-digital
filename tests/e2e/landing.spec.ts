@@ -11,7 +11,7 @@ test('renders every service, plan and subscription package as a linkable card', 
     ...landing.services,
     ...landing.maintenance.plans,
     ...landing.seo.plans,
-    ...landing.subscription.packages,
+    ...(landing.subscription?.packages ?? []),
   ].map((offering) => offering.anchor);
 
   for (const anchor of anchors) {

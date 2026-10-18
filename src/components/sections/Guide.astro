@@ -11,7 +11,7 @@ interface Props {
 const { guide } = Astro.props;
 ---
 
-<Section id="guia" eyebrow="Guía rápida" title="¿Qué necesitas?" lead={guide.intro} tone="muted">
+<Section id="guia" eyebrow="Guía rápida" title="¿Qué necesitas?" lead={guide.intro}>
   <ul role="list" class="needs">
     {guide.items.map((item) => (
       <Card as="li">

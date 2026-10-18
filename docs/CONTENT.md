@@ -53,22 +53,24 @@ Un precio es un rango numérico o una etiqueta libre:
 
 Pesos enteros, antes de IVA. `to` debe ser mayor que `from`.
 
+Todos los precios son opcionales (servicios, extras, planes, auditoría, suscripción y complementos). Sin precio, la oferta se muestra sin monto y se cotiza caso por caso. Recuerda que `catalog.json` es público en el repositorio: un precio oculto con `pricing.display: "hidden"` sigue visible en el código fuente.
+
 ### Secciones
 
-| Llave                            | Notas                                                                                                                                                                                        |
-| -------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `positioning.headline`           | La propuesta de valor. Es el único `h1` de la página.                                                                                                                                        |
-| `positioning.proofPoints[]`      | Hasta 4 `{ title, description }`.                                                                                                                                                            |
-| `positioning.comparison`         | Tabla contra alternativas. Cada fila lleva un valor por alternativa, más el nuestro (`us`).                                                                                                  |
-| `guide.items[]`                  | "¿Qué necesitas?": `need` y `recommend` (ids de servicios, planes o paquetes, en orden). Un id inexistente falla la validación.                                                              |
-| `services[]`                     | `id` (kebab-case, único), `name`, `badge?`, `summary`, `audience`, `includes[]`, `excludes[]`, `delivery`, `price`, `extras[]?`, `stack?`, `thirdPartyCosts?`, `requiresPlan?`, `featured?`. |
-| `services[].excludes`            | "Qué no incluye". Igual de importante que lo que sí: protege el alcance. Vacío genera aviso.                                                                                                 |
-| `services[].requiresPlan`        | Id de un plan de **mantenimiento**. La tarjeta enlaza al plan.                                                                                                                               |
-| `maintenance.table`, `seo.table` | `plans[]` y `features[]`. Cada `features[].values` lleva un valor por plan, en orden: `true` (incluido), `false` (no incluido) o texto.                                                      |
-| `subscription.packages[]`        | `downPayment`, `monthly`, `minTermMonths`, `includes`.                                                                                                                                       |
-| `addons.items[]`                 | `name`, `price`, `featured?` (se resalta).                                                                                                                                                   |
-| `process`                        | `steps[]`, `payments[]` (`when`, `scheme`), `guarantees[]`.                                                                                                                                  |
-| `faq[]`                          | `question`, `answer`. Párrafos separados por una línea en blanco (`\n\n`).                                                                                                                   |
+| Llave                            | Notas                                                                                                                                                                              |
+| -------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `positioning.headline`           | La propuesta de valor. Es el único `h1` de la página.                                                                                                                              |
+| `positioning.proofPoints[]`      | Hasta 4 `{ title, description }`.                                                                                                                                                  |
+| `positioning.comparison`         | Tabla contra alternativas. Cada fila lleva un valor por alternativa, más el nuestro (`us`).                                                                                        |
+| `guide.items[]`                  | "¿Qué necesitas?": `need` y `recommend` (ids de servicios, planes o paquetes, en orden). Un id inexistente falla la validación.                                                    |
+| `services[]`                     | `id` (kebab-case, único), `name`, `badge?`, `summary`, `audience`, `includes[]`, `excludes[]`, `delivery`, `price`, `extras[]?`, `thirdPartyCosts?`, `requiresPlan?`, `featured?`. |
+| `services[].excludes`            | "Qué no incluye". Igual de importante que lo que sí: protege el alcance. Vacío genera aviso.                                                                                       |
+| `services[].requiresPlan`        | Id de un plan de **mantenimiento**. La tarjeta enlaza al plan.                                                                                                                     |
+| `maintenance.table`, `seo.table` | `plans[]` y `features[]`. Cada `features[].values` lleva un valor por plan, en orden: `true` (incluido), `false` (no incluido) o texto.                                            |
+| `subscription`                   | Opcional. Sin esta llave la página no muestra la sección de suscripción. `packages[]`: `downPayment`, `monthly`, `minTermMonths`, `includes`.                                      |
+| `addons.items[]`                 | `name`, `price`, `featured?` (se resalta).                                                                                                                                         |
+| `process`                        | `steps[]`, `payments[]` (`when`, `scheme`), `guarantees[]`.                                                                                                                        |
+| `faq[]`                          | `question`, `answer`. Párrafos separados por una línea en blanco (`\n\n`).                                                                                                         |
 
 Los ids se convierten en anclas (`#servicio-lp-esencial`, `#plan-estandar`, `#paquete-landing-suscripcion`) y en el mensaje de WhatsApp de cada tarjeta. Cambiar un id rompe enlaces compartidos: hazlo solo si es necesario.
 

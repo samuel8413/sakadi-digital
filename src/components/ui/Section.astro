@@ -11,15 +11,13 @@ interface Props {
   eyebrow?: string;
   /** Introductory paragraph under the heading. */
   lead?: string;
-  /** Alternate background so long pages read as distinct bands. */
-  tone?: 'default' | 'muted';
 }
 
-const { id, title, eyebrow, lead, tone = 'default' } = Astro.props;
+const { id, title, eyebrow, lead } = Astro.props;
 const headingId = slugify(id, 'titulo');
 ---
 
-<section id={id} aria-labelledby={headingId} class:list={['section', `tone-${tone}`]}>
+<section id={id} aria-labelledby={headingId} class="section">
   <div class="container">
     <header class="section-header">
       {eyebrow && <p class="eyebrow">{eyebrow}</p>}
@@ -35,7 +33,12 @@ const headingId = slugify(id, 'titulo');
     padding-block: var(--space-9);
   }
 
-  .tone-muted {
+  /*
+   * Alternate backgrounds so a long page reads as distinct bands. Counted, not
+   * assigned per section, so adding or removing a section never puts two bands
+   * of the same tone side by side.
+   */
+  .section:nth-child(even of .section) {
     background: var(--color-surface-muted);
   }
 

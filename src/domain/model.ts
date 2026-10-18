@@ -46,7 +46,6 @@ export interface Service {
   readonly delivery: string;
   readonly price?: PriceTag;
   readonly extras: readonly PricedItem[];
-  readonly stack?: string;
   readonly thirdPartyCosts?: string;
   readonly requiredPlan?: OfferingRef;
   readonly featured: boolean;
@@ -169,7 +168,8 @@ export interface Landing {
     readonly plans: readonly Plan[];
     readonly rules: readonly string[];
   };
-  readonly subscription: {
+  /** Absent when the catalog offers no subscription. */
+  readonly subscription?: {
     readonly intro: string;
     readonly packages: readonly SubscriptionPackage[];
     readonly rules: readonly string[];

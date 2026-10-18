@@ -1,7 +1,7 @@
 {
   "positioning": {
     "headline": "Sitios rápidos, seguros y que sí aparecen en Google",
-    "lead": "Desde una papelería hasta una plataforma de alto tráfico. Con mantenimiento real, no un sitio abandonado.",
+    "lead": "Desde un negocio local hasta una plataforma de alto tráfico. Con mantenimiento real, no un sitio abandonado.",
     "proofPoints": [
       {
         "title": "Tu sitio es tuyo",
@@ -61,7 +61,7 @@
     "items": [
       {
         "need": "Quiero que me encuentren en Google y me escriban",
-        "recommend": ["presencia-express", "lp-esencial", "seo-local"]
+        "recommend": ["lp-esencial", "seo-local"]
       },
       {
         "need": "Quiero una imagen profesional y mostrar varios servicios",
@@ -79,32 +79,12 @@
       {
         "need": "Tengo un proceso o una idea de software",
         "recommend": ["desarrollo-a-medida"],
-        "note": "Empezamos con una fase de descubrimiento para definir el alcance antes de cotizar."
-      },
-      {
-        "need": "No puedo pagar todo de golpe",
-        "recommend": ["landing-suscripcion", "catalogo-suscripcion"]
+        "note": "Si empiezas desde cero, valoramos tus necesidades sin costo. Si ya tienes un sitio o producto, empezamos con una sesión de descubrimiento. De ahí sale la cotización real."
       }
     ]
   },
 
   "services": [
-    {
-      "id": "presencia-express",
-      "name": "Presencia Digital Express",
-      "badge": "Para empezar",
-      "summary": "Para que tus clientes te encuentren hoy en Google Maps y te escriban por WhatsApp.",
-      "audience": "Micronegocios que todavía no existen en internet: papelerías, estéticas, talleres.",
-      "includes": [
-        "Alta y optimización de tu perfil de Google Business (Maps): horarios, fotos, categorías y enlace a WhatsApp",
-        "Configuración de WhatsApp Business con catálogo y respuestas rápidas",
-        "Página “link-in-bio” de una pantalla con tus datos de contacto, mapa y redes",
-        "Código QR impreso para tu mostrador"
-      ],
-      "excludes": ["Dominio propio", "Diseño a medida", "Fotografía"],
-      "delivery": "2 a 3 días hábiles",
-      "price": { "from": 1500, "to": 2500 }
-    },
     {
       "id": "lp-esencial",
       "name": "Landing Page Esencial",
@@ -117,19 +97,18 @@
         "Google Analytics 4",
         "SEO básico: títulos, descripciones, sitemap y datos estructurados de negocio local",
         "2 rondas de revisión",
-        "Diseño responsive, certificado SSL, plantilla de aviso de privacidad y configuración de dominio",
+        "Diseño responsive, plantilla de aviso de privacidad y configuración de dominio",
+        "Certificado SSL (candado https) gratuito: lo activamos en tu hosting con renovación automática",
         "30 días de garantía contra errores"
       ],
       "excludes": [
         "Redacción de textos",
         "Fotos y logo",
-        "Dominio: lo contratas a tu nombre (aprox. $300 a $700 al año)",
+        "Dominio: lo contratas a tu nombre (pago anual al registrador)",
         "Correo corporativo",
-        "Hosting después del primer año si no contratas mantenimiento"
+        "Hosting: lo contratas a tu nombre o usamos el que ya tienes; te ayudamos a elegirlo (para una landing hay opciones gratuitas)"
       ],
-      "delivery": "5 a 7 días hábiles",
-      "price": { "from": 3500, "to": 6000 },
-      "stack": "Astro · Cloudflare Pages"
+      "delivery": "5 a 7 días hábiles"
     },
     {
       "id": "lp-pro",
@@ -137,22 +116,20 @@
       "summary": "Diseño a medida y medición completa para campañas de anuncios y servicios de mayor valor.",
       "audience": "Campañas de anuncios y servicios de mayor ticket.",
       "includes": [
-        "Diseño a medida: ves el mockup en Figma antes de programar",
+        "Diseño a medida: ves y navegas un prototipo antes del desarrollo final",
         "Hasta 10 secciones, con animaciones",
         "WhatsApp, formulario e integración con tu CRM o email marketing (Mailchimp, Brevo)",
         "Google Analytics 4, Meta Pixel y eventos de conversión",
         "SEO on-page y textos orientados a conversión",
         "3 rondas de revisión",
-        "Diseño responsive, SSL, aviso de privacidad (plantilla), dominio y 30 días de garantía"
+        "Diseño responsive, SSL gratuito, aviso de privacidad (plantilla), configuración de dominio y 30 días de garantía"
       ],
       "excludes": [
         "Fotos y logo",
         "Dominio y correo corporativo",
-        "Hosting después del primer año si no contratas mantenimiento"
+        "Hosting: lo contratas a tu nombre o usamos el que ya tienes"
       ],
-      "delivery": "2 a 3 semanas",
-      "price": { "from": 8000, "to": 15000 },
-      "stack": "Astro · Figma"
+      "delivery": "2 a 3 semanas"
     },
     {
       "id": "sitio-profesional",
@@ -160,7 +137,7 @@
       "summary": "Un sitio de varias páginas con blog que tú mismo puedes editar.",
       "audience": "Pymes, despachos, clínicas, escuelas y empresas de servicios.",
       "includes": [
-        "De 5 a 8 páginas: inicio, nosotros, servicios, galería, blog, contacto y preguntas frecuentes",
+        "De 5 a 8 páginas.",
         "Blog editable desde un panel de administración",
         "SEO técnico completo: sitemap, datos estructurados, Open Graph, Core Web Vitals en verde y alta en Search Console",
         "Formularios con anti-spam, mapa e integración con WhatsApp",
@@ -171,9 +148,7 @@
         "Traducciones",
         "Pagos en línea u otras funciones transaccionales"
       ],
-      "delivery": "2 a 4 semanas",
-      "price": { "from": 10000, "to": 22000 },
-      "stack": "Astro o Next.js · CMS headless (Decap, Sanity o Payload)"
+      "delivery": "2 a 4 semanas"
     },
     {
       "id": "catalogo-digital",
@@ -196,15 +171,14 @@
         "Facturación"
       ],
       "delivery": "3 a 5 semanas",
-      "price": { "from": 16000, "to": 35000 },
       "extras": [
         {
-          "label": "Carga de productos adicionales",
-          "price": { "from": 15, "to": 30, "per": "item" }
+          "label": "Carga de productos adicionales"
         },
-        { "label": "Productos con variantes (talla, color)", "price": { "label": "Se cotiza" } }
+        {
+          "label": "Productos con variantes (talla, color)"
+        }
       ],
-      "stack": "Next.js · Payload CMS · Postgres",
       "requiresPlan": "estandar"
     },
     {
@@ -214,7 +188,7 @@
       "summary": "Cobra en línea con riesgo mínimo: diseño propio sobre la infraestructura de Shopify.",
       "audience": "Negocios que quieren cobrar en línea con el menor riesgo; por ejemplo, una papelería que ya tiene catálogo.",
       "includes": [
-        "Tienda propia en React (Hydrogen o Next.js) sobre Shopify: diseño, velocidad y SEO bajo tu control",
+        "Tienda con diseño propio sobre Shopify: diseño, velocidad y SEO bajo tu control",
         "Shopify se encarga de productos, inventario, pedidos y checkout",
         "Administras desde el panel y la app móvil de Shopify",
         "Hasta 50 productos iniciales",
@@ -228,15 +202,12 @@
         "Integraciones con ERP o punto de venta (ver Tienda Avanzada)"
       ],
       "delivery": "4 a 6 semanas",
-      "price": { "from": 20000, "to": 40000 },
       "extras": [
         {
-          "label": "Upgrade desde Catálogo Digital",
-          "price": { "from": 12000, "openEnded": true }
+          "label": "Upgrade desde Catálogo Digital"
         }
       ],
-      "stack": "Shopify headless · Hydrogen o Next.js",
-      "thirdPartyCosts": "Plan de Shopify (aprox. US$29 a 39 al mes) más comisiones por venta. El hosting en Oxygen viene incluido en el plan.",
+      "thirdPartyCosts": "Plan mensual de Shopify más comisiones por venta. El hosting de la tienda viene incluido en el plan de Shopify.",
       "requiresPlan": "ecommerce"
     },
     {
@@ -249,18 +220,15 @@
         "Control total de todo el sistema",
         "Hasta 100 productos iniciales",
         "Tarjeta, OXXO, SPEI, Meses Sin Intereses y Mercado Pago (vía Stripe, Mercado Pago o Conekta)",
-        "Envíos con cotización en vivo (Skydropx, Envia.com)",
         "Autofactura CFDI 4.0 (Facturapi o Facturama)",
-        "Respaldos diarios de la base de datos",
-        "Términos, devoluciones y aviso de privacidad (plantillas), pruebas de compra y capacitación"
+        "Términos, devoluciones y aviso de privacidad (plantillas), pruebas de compra y capacitación",
+        "Envíos, respaldos e integraciones se definen según tu operación"
       ],
       "excludes": [
         "Infraestructura y comisiones de la pasarela de pago (las pagas directamente al proveedor)"
       ],
       "delivery": "8 a 12 semanas",
-      "price": { "from": 60000, "to": 150000, "openEnded": true },
-      "stack": "Next.js · Medusa.js",
-      "thirdPartyCosts": "Infraestructura (aprox. $500 a $3,000 o más al mes) y comisión de la pasarela de pago (aprox. 3 a 4% más una cuota fija).",
+      "thirdPartyCosts": "Infraestructura (servidor y base de datos) y comisiones de la pasarela de pago, que pagas directamente a cada proveedor.",
       "requiresPlan": "ecommerce"
     },
     {
@@ -269,61 +237,48 @@
       "summary": "Software para tu proceso o producto: citas y reservas, portales de clientes, dashboards, SaaS, integraciones y APIs.",
       "audience": "Empresas y emprendedores con un proceso o producto específico.",
       "includes": [
-        "Fase de descubrimiento: requerimientos, alcance por fases (MVP primero), arquitectura, estimación y cronograma",
-        "El costo del descubrimiento se descuenta del proyecto si continúas",
-        "Cotización por fases",
+        "Si empiezas desde cero: valoración de tus necesidades sin costo",
+        "Si ya tienes un sitio o producto: sesión de descubrimiento y exploración para analizar cómo adaptarlo o evolucionarlo",
+        "De ahí definimos juntos el producto, el alcance por fases (MVP primero) y la cotización real",
         "Experiencia en alto tráfico: caché y CDN, SSR/ISR, observabilidad, pruebas de carga, CI/CD e infraestructura como código",
         "Ejemplos: reservas, portales de clientes, intranets, dashboards de datos, SaaS, integraciones con ERP, CRM o punto de venta y migración de plataformas legadas"
       ],
-      "excludes": ["Precio fijo sin fase de descubrimiento"],
-      "delivery": "Por fases, según el alcance",
-      "price": { "from": 6000, "to": 20000, "suffix": "(descubrimiento)" },
-      "extras": [
-        { "label": "MVP pequeño", "price": { "from": 80000, "to": 200000 } },
-        {
-          "label": "Plataforma completa",
-          "price": { "from": 200000, "to": 800000, "openEnded": true }
-        }
-      ],
-      "stack": "Next.js / React · Node.js · Postgres · Redis · AWS · Terraform"
+      "excludes": ["Precio cerrado antes de definir el alcance"],
+      "delivery": "Por fases, según el alcance"
     }
   ],
 
   "maintenance": {
-    "intro": "Hosting, actualizaciones, respaldos y cambios incluidos en una mensualidad, para que tu sitio siga rápido y seguro.",
+    "intro": "Actualizaciones, respaldos, monitoreo y cambios en una mensualidad, para que tu sitio siga rápido y seguro. Cada plan se cotiza según tu sitio y dónde está alojado.",
     "quote": "Un sitio no es un producto terminado, es como un coche: necesita servicio. Las librerías publican parches de seguridad cada semana y un sitio sin actualizar es una puerta abierta. El mantenimiento cuesta menos que recuperar un sitio hackeado o perder ventas por estar caído.",
     "table": {
       "plans": [
         {
           "id": "basico",
           "name": "Básico",
-          "audience": "Landing o sitio estático",
-          "price": { "from": 450, "to": 800, "per": "month" }
+          "audience": "Landing o sitio estático"
         },
         {
           "id": "estandar",
           "name": "Estándar",
           "audience": "Sitio con CMS o catálogo",
-          "price": { "from": 1200, "to": 2200, "per": "month" },
           "featured": true
         },
         {
           "id": "ecommerce",
           "name": "E-commerce / Pro",
-          "audience": "Tiendas y apps con usuarios",
-          "price": { "from": 3000, "to": 6000, "per": "month" }
+          "audience": "Tiendas y apps con usuarios"
         },
         {
           "id": "empresarial",
           "name": "Empresarial",
-          "audience": "Apps a medida y alto tráfico",
-          "price": { "from": 10000, "openEnded": true, "per": "month" }
+          "audience": "Apps a medida y alto tráfico"
         }
       ],
       "features": [
         {
-          "label": "Hosting, SSL y DNS",
-          "values": [true, true, true, "Sí, con infraestructura dedicada"]
+          "label": "Vigilancia de certificado SSL y vencimiento de dominio",
+          "values": [true, true, true, true]
         },
         {
           "label": "Monitoreo de disponibilidad",
@@ -344,7 +299,7 @@
             "Trimestrales",
             "Mensuales",
             "Mensuales, y parches críticos en 48 h",
-            "Continuas (Renovate + CI)"
+            "Continuas y automatizadas"
           ]
         },
         {
@@ -376,8 +331,9 @@
       ]
     },
     "rules": [
-      "Plazo mínimo de 6 meses. Pagando el año por adelantado, te regalamos 2 meses.",
-      "Las horas de cambios no usadas no se acumulan; las horas extra se cobran a la tarifa de tu plan.",
+      "El hosting no está incluido: lo contratas a tu nombre y lo validamos en cada proyecto, porque no se mantiene igual un sitio en cPanel que uno en AWS.",
+      "Plazo mínimo de 6 meses.",
+      "Las horas de cambios no usadas no se acumulan; las horas extra se cobran según lo acordado en tu plan.",
       "Los catálogos y las tiendas en línea requieren plan de mantenimiento: tienen base de datos, servidor y APIs que se actualizan."
     ]
   },
@@ -386,8 +342,7 @@
     "intro": "Aparece cuando te buscan. El SEO tarda de 3 a 6 meses en dar resultados, y preferimos decírtelo desde el inicio.",
     "audit": {
       "label": "Auditoría SEO inicial",
-      "description": "Revisión técnica, palabras clave y competencia. Es el punto de partida de cualquier plan.",
-      "price": { "from": 3000, "to": 8000 }
+      "description": "Revisión técnica, palabras clave y competencia. Es el punto de partida de cualquier plan."
     },
     "table": {
       "plans": [
@@ -395,20 +350,17 @@
           "id": "seo-local",
           "name": "SEO Local",
           "audience": "Negocios con local físico: papelerías, consultorios",
-          "price": { "from": 3000, "to": 5000, "per": "month" },
           "featured": true
         },
         {
           "id": "seo-crecimiento",
           "name": "SEO Crecimiento",
-          "audience": "Pymes que compiten en su ciudad o región",
-          "price": { "from": 7000, "to": 12000, "per": "month" }
+          "audience": "Pymes que compiten en su ciudad o región"
         },
         {
           "id": "seo-avanzado",
           "name": "SEO Avanzado",
-          "audience": "E-commerce y empresas a nivel nacional",
-          "price": { "from": 15000, "to": 30000, "openEnded": true, "per": "month" }
+          "audience": "E-commerce y empresas a nivel nacional"
         }
       ],
       "features": [
@@ -420,7 +372,10 @@
             "Sí, multi-sucursal"
           ]
         },
-        { "label": "Directorios y citas locales (NAP)", "values": [true, true, true] },
+        {
+          "label": "Directorios y citas locales (NAP)",
+          "values": [true, true, true]
+        },
         {
           "label": "Contenido (artículos o páginas)",
           "values": ["1 al mes", "3 a 4 al mes", "6 a 8 al mes, con estrategia de clusters"]
@@ -449,64 +404,42 @@
     ]
   },
 
-  "subscription": {
-    "intro": "Tu sitio por una mensualidad, con hosting y mantenimiento incluidos. Cuesta algo parecido a Wix, pero no tienes que diseñarlo, mantenerlo ni posicionarlo tú.",
-    "packages": [
-      {
-        "id": "landing-suscripcion",
-        "name": "Landing por suscripción",
-        "downPayment": { "from": 0, "to": 1000 },
-        "monthly": { "from": 699, "to": 999, "per": "month" },
-        "minTermMonths": 12,
-        "includes": "Landing Page Esencial, hosting, mantenimiento Básico y 30 minutos de cambios al mes."
-      },
-      {
-        "id": "catalogo-suscripcion",
-        "name": "Catálogo por suscripción",
-        "downPayment": { "from": 3000, "to": 5000 },
-        "monthly": { "from": 1999, "to": 2999, "per": "month" },
-        "minTermMonths": 18,
-        "includes": "Catálogo Digital y mantenimiento Estándar."
-      }
-    ],
-    "rules": [
-      "El dominio siempre queda a tu nombre.",
-      "Al cumplir el plazo puedes seguir en suscripción, o comprar el código y pasar a un plan de mantenimiento normal.",
-      "Si cancelas antes del plazo, pagas el saldo del desarrollo o el sitio se da de baja."
-    ]
-  },
-
   "addons": {
     "intro": "Complementos que se suman a cualquier proyecto.",
     "items": [
       {
-        "name": "Migración desde Wix o WordPress",
-        "price": { "from": 5000, "to": 25000 },
-        "featured": true
+        "name": "Migración desde Wix o WordPress"
       },
       {
-        "name": "Rescate de WordPress hackeado o lento",
-        "price": { "from": 3000, "to": 10000 },
-        "featured": true
+        "name": "Rescate de WordPress hackeado o lento"
       },
       {
-        "name": "Auditoría de seguridad y rendimiento de tu sitio actual",
-        "price": { "from": 3000, "to": 12000 }
+        "name": "Auditoría de seguridad y rendimiento de tu sitio actual"
       },
-      { "name": "Página adicional", "price": { "from": 1500, "to": 3000 } },
-      { "name": "Redacción de textos, por página", "price": { "from": 500, "to": 1200 } },
       {
-        "name": "Correo corporativo (Google Workspace o Zoho)",
-        "price": { "from": 800, "to": 1500, "suffix": "+ licencia" }
+        "name": "Página adicional"
       },
-      { "name": "Reservas y agenda en línea", "price": { "from": 2500, "to": 6000 } },
       {
-        "name": "Chatbot de WhatsApp (respuestas automáticas o IA)",
-        "price": { "from": 4000, "to": 15000, "suffix": "+ costo de API" }
+        "name": "Redacción de textos, por página"
       },
-      { "name": "Sitio bilingüe", "price": { "label": "+30 a 50% del proyecto" } },
-      { "name": "Facturación CFDI (autofactura)", "price": { "from": 6000, "to": 15000 } },
-      { "name": "Logo e identidad básica", "price": { "from": 1500, "to": 6000 } }
+      {
+        "name": "Correo corporativo (Google Workspace o Zoho; la licencia se paga aparte)"
+      },
+      {
+        "name": "Reservas y agenda en línea"
+      },
+      {
+        "name": "Chatbot de WhatsApp (respuestas automáticas o IA; el costo de la API se paga aparte)"
+      },
+      {
+        "name": "Sitio bilingüe"
+      },
+      {
+        "name": "Facturación CFDI (autofactura)"
+      },
+      {
+        "name": "Logo e identidad básica"
+      }
     ]
   },
 
@@ -539,14 +472,17 @@
     ],
     "payments": [
       {
-        "when": "Proyectos menores a $20,000",
+        "when": "Proyectos de una sola entrega",
         "scheme": "50% de anticipo y 50% contra entrega, antes de publicar."
       },
       {
-        "when": "Proyectos de $20,000 o más",
+        "when": "Proyectos más grandes o por etapas",
         "scheme": "40% de anticipo, 30% al avance y 30% a la entrega."
       },
-      { "when": "Desarrollo a medida", "scheme": "Por hitos, o mensual por horas." },
+      {
+        "when": "Desarrollo a medida",
+        "scheme": "Por hitos, o mensual por horas."
+      },
       {
         "when": "Mantenimiento y SEO",
         "scheme": "Mensualidad por adelantado, idealmente domiciliada."
@@ -562,8 +498,8 @@
 
   "faq": [
     {
-      "question": "¿Los precios incluyen IVA?",
-      "answer": "No. Todos los precios están en pesos mexicanos (MXN) antes de IVA (16%). Son precios de referencia: la cotización final depende del alcance que definamos juntos."
+      "question": "¿Cuánto cuesta?",
+      "answer": "Cada proyecto se cotiza a tu medida, porque depende del alcance, del contenido y de dónde se va a alojar. Si empiezas desde cero, la valoración de tus necesidades es sin costo.\n\nLas cotizaciones son en pesos mexicanos (MXN), antes de IVA."
     },
     {
       "question": "¿Por qué no trabajan con WordPress?",
@@ -575,7 +511,7 @@
     },
     {
       "question": "¿Por qué necesito un plan de mantenimiento?",
-      "answer": "Las librerías y plataformas publican parches de seguridad todo el tiempo, y un sitio sin actualizar se vuelve vulnerable. El plan incluye hosting, actualizaciones, respaldos, monitoreo y horas de cambios.\n\nLos catálogos y las tiendas en línea siempre lo requieren, porque tienen base de datos, servidor y APIs que cambian de versión."
+      "answer": "Las librerías y plataformas publican parches de seguridad todo el tiempo, y un sitio sin actualizar se vuelve vulnerable. El plan incluye actualizaciones, respaldos, monitoreo y horas de cambios. El hosting lo contratas tú y lo revisamos en cada proyecto.\n\nLos catálogos y las tiendas en línea siempre lo requieren, porque tienen base de datos, servidor y APIs que cambian de versión."
     },
     {
       "question": "¿Es seguro cobrar en línea?",
@@ -590,8 +526,8 @@
       "answer": "Podemos redactar tus textos como complemento. Si el contenido no llega en 10 días hábiles, el proyecto se pausa y la fecha de entrega se recorre."
     },
     {
-      "question": "¿Puedo pagar en mensualidades?",
-      "answer": "Sí, con el sitio por suscripción: un enganche bajo y una mensualidad que ya incluye hosting y mantenimiento."
+      "question": "¿Puedo pagar en partes?",
+      "answer": "Sí. Los proyectos se pagan por etapas: un anticipo para iniciar y el resto al avance y a la entrega. El mantenimiento y el SEO se pagan por mes."
     }
   ]
 }

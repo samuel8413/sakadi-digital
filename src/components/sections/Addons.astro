@@ -19,6 +19,7 @@ const { addons } = Astro.props;
     {addons.items.map((item) => (
       <li class:list={{ featured: item.featured }}>
         <span class="name">{item.label}</span>
+        {item.featured && <span class="tag">Más solicitado</span>}
         {item.price && <span class="price">{item.price.label}</span>}
       </li>
     ))}
@@ -51,6 +52,14 @@ const { addons } = Astro.props;
 
   .name {
     font-weight: 600;
+  }
+
+  .tag {
+    color: var(--color-accent);
+    font-size: var(--text-xs);
+    font-weight: 700;
+    letter-spacing: var(--tracking-caps);
+    text-transform: uppercase;
   }
 
   .price {

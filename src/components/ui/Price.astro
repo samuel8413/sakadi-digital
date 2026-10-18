@@ -4,7 +4,8 @@ import type { PriceTag } from '../../domain/model.ts';
 /**
  * A price set for scanning: the amount large, "Desde" and "/mes" small, so
  * prices line up across cards and do not wrap mid-amount. Screen readers get
- * the same words in order.
+ * the same words in order. Free-text prices ("Requiere cotización
+ * personalizada") have no amount to protect, so they wrap.
  */
 interface Props {
   price: PriceTag;
@@ -16,7 +17,7 @@ const { price, size = 'lg' } = Astro.props;
 
 <span class:list={['price', `size-${size}`]}>
   {price.prefix && <span class="prefix">{price.prefix} </span>}
-  <span class="amount">{price.amount}</span>
+  <span class:list={['amount', { text: price.min === undefined }]}>{price.amount}</span>
   {price.qualifier && <span class="qualifier"> {price.qualifier}</span>}
 </span>
 
@@ -52,6 +53,15 @@ const { price, size = 'lg' } = Astro.props;
 
   .size-md .amount {
     font-size: var(--text-lg);
+  }
+
+  .amount.text {
+    white-space: normal;
+    font-size: var(--text-xl);
+  }
+
+  .size-md .amount.text {
+    font-size: var(--text-base);
   }
 
   .qualifier {

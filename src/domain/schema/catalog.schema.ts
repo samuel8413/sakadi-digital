@@ -58,11 +58,11 @@ const serviceSchema = z.strictObject({
   /** "No incluye". As important as what is included: it protects the scope. */
   excludes: stringList.default([]),
   delivery: nonEmptyText,
-  price: priceSchema,
+  price: priceSchema.optional(),
   /** Priced variations: extra products, upgrades, phases. */
-  extras: z.array(z.strictObject({ label: nonEmptyText, price: priceSchema })).default([]),
-  /** Technology, in one line. */
-  stack: optionalText.optional(),
+  extras: z
+    .array(z.strictObject({ label: nonEmptyText, price: priceSchema.optional() }))
+    .default([]),
   /** Costs the client pays to third parties (Shopify plan, payment fees). */
   thirdPartyCosts: optionalText.optional(),
   /** Id of the minimum maintenance plan the service must be paired with. */
@@ -74,7 +74,7 @@ const planSchema = z.strictObject({
   id: slugId,
   name: nonEmptyText,
   audience: nonEmptyText,
-  price: priceSchema,
+  price: priceSchema.optional(),
   featured: z.boolean().default(false),
 });
 
@@ -108,8 +108,8 @@ const planTableSchema = z
 const subscriptionPackageSchema = z.strictObject({
   id: slugId,
   name: nonEmptyText,
-  downPayment: priceSchema,
-  monthly: priceSchema,
+  downPayment: priceSchema.optional(),
+  monthly: priceSchema.optional(),
   minTermMonths: z.number().int().min(1).max(60),
   includes: nonEmptyText,
 });
@@ -145,22 +145,29 @@ export const catalogSchema = z
     }),
     seo: z.strictObject({
       intro: nonEmptyText,
-      audit: z.strictObject({ label: nonEmptyText, description: nonEmptyText, price: priceSchema }),
+      audit: z.strictObject({
+        label: nonEmptyText,
+        description: nonEmptyText,
+        price: priceSchema.optional(),
+      }),
       table: planTableSchema,
       rules: stringList.default([]),
     }),
-    subscription: z.strictObject({
-      intro: nonEmptyText,
-      packages: z.array(subscriptionPackageSchema).min(1),
-      rules: stringList.default([]),
-    }),
+    /** Optional: without it the page has no subscription section. */
+    subscription: z
+      .strictObject({
+        intro: nonEmptyText,
+        packages: z.array(subscriptionPackageSchema).min(1),
+        rules: stringList.default([]),
+      })
+      .optional(),
     addons: z.strictObject({
       intro: nonEmptyText,
       items: z
         .array(
           z.strictObject({
             name: nonEmptyText,
-            price: priceSchema,
+            price: priceSchema.optional(),
             featured: z.boolean().default(false),
           }),
         )
@@ -185,7 +192,7 @@ export const catalogSchema = z
         id: p.id,
         path: ['seo', 'table', 'plans', i, 'id'],
       })),
-      ...catalog.subscription.packages.map((p, i) => ({
+      ...(catalog.subscription?.packages ?? []).map((p, i) => ({
         id: p.id,
         path: ['subscription', 'packages', i, 'id'],
       })),

@@ -14,8 +14,8 @@
     "repositoryUrl": ""
   },
   "contact": {
-    "lead": "Cuéntanos de tu negocio y qué quieres lograr. Te respondemos con una recomendación y un rango de precio.",
-    "whatsapp": "",
+    "lead": "Cuéntanos de tu negocio y qué quieres lograr. Te respondemos con una recomendación y una cotización a tu medida.",
+    "whatsapp": "52 55 6504 9317",
     "email": "",
     "hours": "",
     "messages": {
@@ -37,7 +37,7 @@
     "tiktok": ""
   },
   "pricing": {
-    "display": "from",
+    "display": "hidden",
     "currency": "MXN",
     "note": "Precios en pesos mexicanos (MXN), antes de IVA. Son de referencia: la cotización final depende del alcance."
   }
