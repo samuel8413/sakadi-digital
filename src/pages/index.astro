@@ -87,7 +87,7 @@ const businessSchema = buildBusinessSchema(landing, {
     <Services services={landing.services} pricingNote={landing.pricingNote} />
     <Maintenance maintenance={landing.maintenance} />
     <Seo seo={landing.seo} />
-    <Subscription subscription={landing.subscription} />
+    {landing.subscription && <Subscription subscription={landing.subscription} />}
     <Addons addons={landing.addons} />
     <Process process={landing.process} />
     <Faq entries={faq} />

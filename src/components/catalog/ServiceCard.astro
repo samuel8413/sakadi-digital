@@ -89,17 +89,8 @@ const headingId = `${service.anchor}-titulo`;
     </div>
   )}
 
-  {(service.stack || service.thirdPartyCosts || service.requiredPlan) && (
+  {(service.thirdPartyCosts || service.requiredPlan) && (
     <div class="notes">
-      {service.stack && (
-        <p>
-          <Icon name="code" size={16} />
-          <span>
-            <span class="visually-hidden">Tecnología: </span>
-            {service.stack}
-          </span>
-        </p>
-      )}
       {service.thirdPartyCosts && (
         <p>
           <Icon name="layers" size={16} />

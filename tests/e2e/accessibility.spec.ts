@@ -34,7 +34,7 @@ test('exposes the expected landmarks and heading outline', async ({ page }) => {
 
   await expect(page.getByRole('heading', { level: 1 })).toHaveCount(1);
   const h2s = await page.getByRole('heading', { level: 2 }).allTextContents();
-  expect(h2s).toEqual(expect.arrayContaining(['¿Qué necesitas?', 'Mantenimiento y hosting']));
+  expect(h2s).toEqual(expect.arrayContaining(['¿Qué necesitas?', 'Planes de mantenimiento']));
 });
 
 test('skip link is the first focusable element and moves focus to main', async ({ page }) => {
