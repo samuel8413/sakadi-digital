@@ -1,0 +1,155 @@
+/*
+ * Design tokens. Two layers:
+ *  1. Primitive palette, sampled from the SAKADI DIGITAL logo (never used directly by components).
+ *  2. Semantic roles that flip with the theme. Components only reference these.
+ *
+ * Theme resolution: the `data-theme` attribute wins (user choice, persisted in
+ * localStorage), otherwise `prefers-color-scheme` decides.
+ *
+ * Contrast (WCAG 2.2): every text role is ≥ 4.5:1 on every surface of its theme.
+ * Sage and sky are below that on cream, so in light mode they are decoration only
+ * (logo nodes, rules, highlights), never text.
+ */
+:root {
+  /* Type: Montserrat is the logo's typeface, self-hosted through Astro's font API. */
+  --font-sans: var(--font-montserrat), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: ui-monospace, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace;
+
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: clamp(1.25rem, 1.1rem + 0.6vw, 1.5rem);
+  --text-2xl: clamp(1.5rem, 1.2rem + 1.2vw, 2.125rem);
+  --text-3xl: clamp(2.125rem, 1.4rem + 3vw, 3.5rem);
+
+  --leading-tight: 1.15;
+  --leading-snug: 1.4;
+  --leading-normal: 1.65;
+
+  /* The wordmark's two tracks: tight bold "SAKADI", widely spaced "DIGITAL". */
+  --tracking-display: -0.02em;
+  --tracking-wide: 0.32em;
+  --tracking-caps: 0.08em;
+
+  /* Space (4px base) */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4rem;
+  --space-9: 6rem;
+
+  --radius-sm: 0.375rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1.25rem;
+  --radius-full: 9999px;
+
+  --container: 72rem;
+  --measure: 66ch;
+
+  --ease: cubic-bezier(0.2, 0, 0, 1);
+  --duration: 160ms;
+
+  /* Primitive palette (logo) */
+  --brand-ink: #133d39;
+  --brand-forest: #416a5c;
+  --brand-sage: #7fa282;
+  --brand-sky: #85c4d3;
+  --brand-cream: #faf3e8;
+
+  /* Derived steps, same hues */
+  --cream-50: #fffdf8;
+  --cream-200: #f2e9da;
+  --cream-300: #e4d9c6;
+  --cream-400: #cfc2ab;
+  --ink-500: #4e5a54;
+  --ink-800: #163a35;
+  --ink-850: #102e2a;
+  --ink-900: #0b2421;
+  --ink-line: #1f4842;
+  --ink-line-strong: #2c5a52;
+  --sage-300: #9fc3a2;
+  --sage-200: #c2d6c4;
+  --sage-100: #b5cfc0;
+
+  color-scheme: light dark;
+}
+
+/* Semantic roles: light (cream paper, ink text) */
+:root,
+:root[data-theme='light'] {
+  --color-bg: var(--brand-cream);
+  --color-surface: var(--cream-50);
+  --color-surface-muted: var(--cream-200);
+  --color-border: var(--cream-300);
+  --color-border-strong: var(--cream-400);
+  --color-text: var(--brand-ink);
+  --color-text-muted: var(--ink-500);
+  --color-accent: var(--brand-forest);
+  --color-accent-strong: var(--brand-ink);
+  --color-accent-soft: rgb(127 162 130 / 0.18);
+  --color-highlight: rgb(133 196 211 / 0.28);
+  --color-on-accent: var(--brand-cream);
+  --color-button: var(--brand-ink);
+  --color-button-hover: var(--brand-forest);
+  --color-focus: var(--brand-forest);
+  --color-positive: var(--brand-forest);
+  --logo-ink: var(--brand-ink);
+  --shadow-sm: 0 1px 2px rgb(19 61 57 / 0.06);
+  --shadow-md: 0 12px 32px -16px rgb(19 61 57 / 0.3);
+  color-scheme: light;
+}
+
+/* Semantic roles: dark (deep ink, cream text). The logo's ink node turns cream to stay visible. */
+:root[data-theme='dark'] {
+  --color-bg: var(--ink-900);
+  --color-surface: var(--ink-850);
+  --color-surface-muted: var(--ink-800);
+  --color-border: var(--ink-line);
+  --color-border-strong: var(--ink-line-strong);
+  --color-text: var(--brand-cream);
+  --color-text-muted: var(--sage-100);
+  --color-accent: var(--sage-300);
+  --color-accent-strong: var(--sage-200);
+  --color-accent-soft: rgb(159 195 162 / 0.12);
+  --color-highlight: rgb(133 196 211 / 0.14);
+  --color-on-accent: var(--ink-900);
+  --color-button: var(--sage-300);
+  --color-button-hover: var(--sage-200);
+  --color-focus: var(--brand-sky);
+  --color-positive: var(--sage-300);
+  --logo-ink: var(--brand-cream);
+  --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.4);
+  --shadow-md: 0 12px 32px -16px rgb(0 0 0 / 0.7);
+  color-scheme: dark;
+}
+
+/* System preference applies only when the user has not chosen explicitly. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    --color-bg: var(--ink-900);
+    --color-surface: var(--ink-850);
+    --color-surface-muted: var(--ink-800);
+    --color-border: var(--ink-line);
+    --color-border-strong: var(--ink-line-strong);
+    --color-text: var(--brand-cream);
+    --color-text-muted: var(--sage-100);
+    --color-accent: var(--sage-300);
+    --color-accent-strong: var(--sage-200);
+    --color-accent-soft: rgb(159 195 162 / 0.12);
+    --color-highlight: rgb(133 196 211 / 0.14);
+    --color-on-accent: var(--ink-900);
+    --color-button: var(--sage-300);
+    --color-button-hover: var(--sage-200);
+    --color-focus: var(--brand-sky);
+    --color-positive: var(--sage-300);
+    --logo-ink: var(--brand-cream);
+    --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.4);
+    --shadow-md: 0 12px 32px -16px rgb(0 0 0 / 0.7);
+    color-scheme: dark;
+  }
+}

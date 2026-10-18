@@ -1,0 +1,125 @@
+---
+import BrandLogo from '../brand/BrandLogo.astro';
+import ButtonLink from '../ui/ButtonLink.astro';
+import ThemeToggle from './ThemeToggle.astro';
+
+export interface NavItem {
+  id: string;
+  label: string;
+}
+
+interface Props {
+  name: string;
+  items: readonly NavItem[];
+  /** Where the header's "Cotizar" button goes (WhatsApp, email or the contact section). */
+  inquiryHref: string;
+}
+
+const { name, items, inquiryHref } = Astro.props;
+---
+
+<header class="site-header">
+  <div class="container bar">
+    <a href="#inicio" class="brand" aria-label={`${name}, ir al inicio`}>
+      <BrandLogo name={name} />
+    </a>
+
+    <nav aria-label="Secciones" class="nav">
+      <ul role="list">
+        {items.map((item) => (
+          <li>
+            <a href={`#${item.id}`}>{item.label}</a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+
+    <div class="actions">
+      <ButtonLink href={inquiryHref} icon="whatsapp" size="sm" class="quote">
+        Cotizar
+      </ButtonLink>
+      <ThemeToggle />
+    </div>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: color-mix(in srgb, var(--color-bg) 92%, transparent);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .bar {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    min-height: 4rem;
+  }
+
+  .brand {
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  .nav {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .nav ul {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-1);
+    overflow-x: auto;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .nav ul::-webkit-scrollbar {
+    display: none;
+  }
+
+  .nav a {
+    display: inline-block;
+    padding: var(--space-2) var(--space-3);
+    border-radius: var(--radius-sm);
+    color: var(--color-text-muted);
+    font-size: var(--text-sm);
+    font-weight: 500;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  .nav a:hover {
+    color: var(--color-text);
+    background: var(--color-surface-muted);
+  }
+
+  .actions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    margin-inline-start: auto;
+  }
+
+  @media (max-width: 60rem) {
+    .bar {
+      flex-wrap: wrap;
+      padding-block: var(--space-2);
+      gap: var(--space-2) var(--space-4);
+    }
+
+    .nav {
+      order: 3;
+      flex-basis: 100%;
+    }
+
+    .nav ul {
+      justify-content: flex-start;
+    }
+  }
+</style>

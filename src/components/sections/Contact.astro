@@ -1,0 +1,165 @@
+---
+import { CONTACT_ANCHOR } from '../../domain/contact.ts';
+import type { Contact } from '../../domain/model.ts';
+import ButtonLink from '../ui/ButtonLink.astro';
+import Icon from '../ui/Icon.astro';
+import Section from '../ui/Section.astro';
+
+interface Props {
+  contact: Contact;
+}
+
+const { contact } = Astro.props;
+---
+
+<Section
+  id={CONTACT_ANCHOR}
+  eyebrow="Contacto"
+  title="Platiquemos de tu proyecto"
+  lead={contact.lead}
+  tone="muted"
+>
+  <div class="grid">
+    {(contact.whatsapp || contact.email) && (
+      <div class="channels">
+        {contact.whatsapp && (
+          <ButtonLink href={contact.whatsapp.href} icon="whatsapp">
+            Escríbenos por WhatsApp
+          </ButtonLink>
+        )}
+        <dl class="details">
+          {contact.whatsapp && (
+            <div>
+              <dt>
+                <Icon name="whatsapp" size={18} />
+                WhatsApp
+              </dt>
+              <dd>{contact.whatsapp.display}</dd>
+            </div>
+          )}
+          {contact.email && (
+            <div>
+              <dt>
+                <Icon name="mail" size={18} />
+                Correo
+              </dt>
+              <dd>
+                <a href={contact.email.href}>{contact.email.address}</a>
+              </dd>
+            </div>
+          )}
+          {contact.hours && (
+            <div>
+              <dt>
+                <Icon name="clock" size={18} />
+                Horario
+              </dt>
+              <dd>{contact.hours}</dd>
+            </div>
+          )}
+        </dl>
+      </div>
+    )}
+
+    {contact.prompts.length > 0 && (
+      <div class="prompts">
+        <h3>Para cotizar más rápido, cuéntanos:</h3>
+        <ul role="list">
+          {contact.prompts.map((prompt) => (
+            <li>{prompt}</li>
+          ))}
+        </ul>
+      </div>
+    )}
+  </div>
+</Section>
+
+<style>
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr));
+    gap: var(--space-6);
+    align-items: start;
+  }
+
+  .channels {
+    display: grid;
+    gap: var(--space-5);
+    justify-items: start;
+  }
+
+  .details {
+    display: grid;
+    gap: var(--space-3);
+    width: 100%;
+  }
+
+  .details div {
+    display: grid;
+    grid-template-columns: 7.5rem minmax(0, 1fr);
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-3) var(--space-4);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background: var(--color-surface);
+  }
+
+  dt {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-weight: 600;
+  }
+
+  dt :global(.icon) {
+    color: var(--color-accent);
+  }
+
+  dd {
+    margin: 0;
+    overflow-wrap: anywhere;
+  }
+
+  .prompts {
+    padding: var(--space-5);
+    border-radius: var(--radius-lg);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+  }
+
+  .prompts h3 {
+    font-size: var(--text-lg);
+    margin-block-end: var(--space-3);
+  }
+
+  .prompts ul {
+    display: grid;
+    gap: var(--space-2);
+    color: var(--color-text-muted);
+  }
+
+  .prompts li {
+    padding-inline-start: var(--space-5);
+    position: relative;
+  }
+
+  /* Sage node bullets. */
+  .prompts li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.55em;
+    width: 0.6rem;
+    height: 0.6rem;
+    border-radius: var(--radius-full);
+    background: var(--brand-sage);
+  }
+
+  @media (max-width: 30rem) {
+    .details div {
+      grid-template-columns: 1fr;
+      gap: var(--space-1);
+    }
+  }
+</style>

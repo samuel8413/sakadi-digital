@@ -1,0 +1,44 @@
+---
+import Icon from '../ui/Icon.astro';
+
+/** Terms that apply to a whole group of plans (minimum term, unused hours). Renders nothing when empty. */
+interface Props {
+  rules: readonly string[];
+  label: string;
+}
+
+const { rules, label } = Astro.props;
+---
+
+{rules.length > 0 && (
+  <ul role="list" class="rules" aria-label={label}>
+    {rules.map((rule) => (
+      <li>
+        <Icon name="check" size={16} />
+        <span>{rule}</span>
+      </li>
+    ))}
+  </ul>
+)}
+
+<style>
+  .rules {
+    display: grid;
+    gap: var(--space-2);
+    margin-block-start: var(--space-6);
+    max-width: var(--measure);
+    color: var(--color-text-muted);
+    font-size: var(--text-sm);
+  }
+
+  li {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: var(--space-2);
+  }
+
+  li :global(.icon) {
+    margin-block-start: 0.2em;
+    color: var(--color-accent);
+  }
+</style>

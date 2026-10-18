@@ -1,0 +1,49 @@
+---
+import BrandMark from '../components/brand/BrandMark.astro';
+import { landing, siteConfig } from '../data/landing.ts';
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const title = siteConfig.site.titleTemplate.replace('%s', 'Página no encontrada');
+const home = import.meta.env.BASE_URL;
+---
+
+<BaseLayout
+  title={title}
+  description={`Esta página no existe en el sitio de ${landing.business.name}.`}
+  lang={siteConfig.site.locale}
+  siteName={landing.business.name}
+  noindex
+>
+  <main id="main" class="container">
+    <BrandMark size={72} />
+    <p class="code" aria-hidden="true">
+      404
+    </p>
+    <h1>Página no encontrada</h1>
+    <p>Puede que la dirección esté mal escrita o que la página se haya movido.</p>
+    <p>
+      <a href={home}>Volver al inicio</a>
+    </p>
+  </main>
+</BaseLayout>
+
+<style>
+  main {
+    min-height: 80dvh;
+    display: grid;
+    align-content: center;
+    justify-items: start;
+    gap: var(--space-3);
+  }
+
+  .code {
+    font-size: var(--text-3xl);
+    font-weight: 800;
+    color: var(--color-accent);
+    letter-spacing: var(--tracking-display);
+  }
+
+  h1 {
+    font-size: var(--text-2xl);
+  }
+</style>

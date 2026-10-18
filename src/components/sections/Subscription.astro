@@ -1,0 +1,111 @@
+---
+import type { Landing } from '../../domain/model.ts';
+import RuleList from '../catalog/RuleList.astro';
+import ButtonLink from '../ui/ButtonLink.astro';
+import Card from '../ui/Card.astro';
+import Price from '../ui/Price.astro';
+import Section from '../ui/Section.astro';
+
+interface Props {
+  subscription: Landing['subscription'];
+}
+
+const { subscription } = Astro.props;
+---
+
+<Section
+  id="suscripcion"
+  eyebrow="Sin pagar todo de golpe"
+  title="Tu sitio por suscripción"
+  lead={subscription.intro}
+  tone="muted"
+>
+  <div class="packages">
+    {subscription.packages.map((pkg) => {
+      const headingId = `${pkg.anchor}-titulo`;
+      return (
+        <Card as="article" id={pkg.anchor} labelledby={headingId}>
+          <h3 id={headingId}>{pkg.name}</h3>
+          <p class="includes">{pkg.includes}</p>
+          <dl class="terms">
+            {pkg.downPayment && (
+              <div>
+                <dt>Enganche</dt>
+                <dd>
+                  <Price price={pkg.downPayment} size="md" />
+                </dd>
+              </div>
+            )}
+            {pkg.monthly && (
+              <div>
+                <dt>Mensualidad</dt>
+                <dd>
+                  <Price price={pkg.monthly} size="md" />
+                </dd>
+              </div>
+            )}
+            <div>
+              <dt>Plazo mínimo</dt>
+              <dd>{pkg.minTermMonths} meses</dd>
+            </div>
+          </dl>
+          <div class="cta">
+            <ButtonLink href={pkg.inquiryHref} icon="whatsapp" context={pkg.name}>
+              Me interesa
+            </ButtonLink>
+          </div>
+        </Card>
+      );
+    })}
+  </div>
+
+  <RuleList rules={subscription.rules} label="Condiciones de la suscripción" />
+</Section>
+
+<style>
+  .packages {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr));
+    gap: var(--space-5);
+  }
+
+  h3 {
+    font-size: var(--text-xl);
+  }
+
+  .includes {
+    color: var(--color-text-muted);
+  }
+
+  .terms {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-3);
+    padding-block: var(--space-4);
+    border-block: 1px solid var(--color-border);
+  }
+
+  dt {
+    font-size: var(--text-xs);
+    font-weight: 700;
+    letter-spacing: var(--tracking-caps);
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+  }
+
+  dd {
+    margin: var(--space-1) 0 0;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .cta {
+    margin-block-start: auto;
+  }
+
+  @media (max-width: 30rem) {
+    .terms {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

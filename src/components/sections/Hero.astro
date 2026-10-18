@@ -1,0 +1,118 @@
+---
+import type { Landing } from '../../domain/model.ts';
+import BrandMark from '../brand/BrandMark.astro';
+import ButtonLink from '../ui/ButtonLink.astro';
+
+interface Props {
+  positioning: Landing['positioning'];
+  tagline: string;
+  inquiryHref: string;
+}
+
+const { positioning, tagline, inquiryHref } = Astro.props;
+---
+
+<section id="inicio" class="hero" aria-labelledby="hero-titulo">
+  <div class="container grid">
+    <div class="copy">
+      <p class="tagline">{tagline}</p>
+      <h1 id="hero-titulo">{positioning.headline}</h1>
+      <p class="lead">{positioning.lead}</p>
+
+      <ul class="actions" role="list">
+        <li>
+          <ButtonLink href={inquiryHref} icon="whatsapp">
+            Cotiza tu proyecto
+          </ButtonLink>
+        </li>
+        <li>
+          <ButtonLink href="#servicios" variant="secondary" icon="arrow-right">
+            Ver servicios
+          </ButtonLink>
+        </li>
+      </ul>
+    </div>
+
+    <div class="visual" aria-hidden="true">
+      <BrandMark size={340} />
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    padding-block: var(--space-9);
+    overflow: hidden;
+    /* Two soft halos in the logo's sky and sage, sized to fade out before the section ends. */
+    background:
+      radial-gradient(30rem 22rem at 80% 35%, var(--color-highlight), transparent 70%),
+      radial-gradient(26rem 18rem at 70% 70%, var(--color-accent-soft), transparent 70%),
+      var(--color-bg);
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+    gap: var(--space-7);
+    align-items: center;
+  }
+
+  .tagline {
+    color: var(--color-accent);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+  }
+
+  h1 {
+    margin-block-start: var(--space-4);
+    font-size: var(--text-3xl);
+    font-weight: 800;
+    max-width: 18ch;
+  }
+
+  .lead {
+    margin-block-start: var(--space-5);
+    font-size: var(--text-xl);
+    line-height: var(--leading-snug);
+    color: var(--color-text-muted);
+    max-width: 40ch;
+  }
+
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    margin-block-start: var(--space-6);
+  }
+
+  .visual {
+    display: grid;
+    place-items: center;
+  }
+
+  .visual :global(.brand-mark) {
+    width: min(100%, 21rem);
+  }
+
+  @media (max-width: 48rem) {
+    .hero {
+      padding-block: var(--space-7) var(--space-8);
+    }
+
+    .grid {
+      grid-template-columns: 1fr;
+      gap: var(--space-6);
+    }
+
+    .visual {
+      order: -1;
+      justify-items: start;
+    }
+
+    .visual :global(.brand-mark) {
+      width: 6rem;
+    }
+  }
+</style>

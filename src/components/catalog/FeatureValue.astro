@@ -1,0 +1,45 @@
+---
+import Icon from '../ui/Icon.astro';
+
+/** A plan feature cell: `true` → included, `false` → not included, text → as written. */
+interface Props {
+  value: boolean | string;
+}
+
+const { value } = Astro.props;
+---
+
+{value === true ? (
+  <span class="value yes">
+    <Icon name="check" size={16} />
+    Incluido
+  </span>
+) : value === false ? (
+  <span class="value no">
+    <Icon name="x" size={16} />
+    No incluido
+  </span>
+) : (
+  <span class="value text">{value}</span>
+)}
+
+<style>
+  .value {
+    display: inline-flex;
+    align-items: flex-start;
+    gap: var(--space-1);
+  }
+
+  .value :global(.icon) {
+    margin-block-start: 0.2em;
+  }
+
+  .yes {
+    color: var(--color-positive);
+    font-weight: 600;
+  }
+
+  .no {
+    color: var(--color-text-muted);
+  }
+</style>

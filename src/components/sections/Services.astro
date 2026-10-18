@@ -1,0 +1,41 @@
+---
+import type { Service } from '../../domain/model.ts';
+import ServiceCard from '../catalog/ServiceCard.astro';
+import Section from '../ui/Section.astro';
+
+interface Props {
+  services: readonly Service[];
+  pricingNote?: string;
+}
+
+const { services, pricingNote } = Astro.props;
+---
+
+<Section
+  id="servicios"
+  eyebrow="Servicios"
+  title="De tu primera página a una plataforma a medida"
+  lead="Cada servicio dice para quién es, qué incluye, qué no incluye, cuánto tarda y cuánto cuesta. Sin letras chiquitas."
+>
+  <div class="grid">
+    {services.map((service) => (
+      <ServiceCard service={service} />
+    ))}
+  </div>
+  {pricingNote && <p class="pricing-note">{pricingNote}</p>}
+</Section>
+
+<style>
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 20rem), 1fr));
+    gap: var(--space-5);
+    align-items: stretch;
+  }
+
+  .pricing-note {
+    margin-block-start: var(--space-6);
+    color: var(--color-text-muted);
+    font-size: var(--text-sm);
+  }
+</style>

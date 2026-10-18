@@ -1,0 +1,119 @@
+---
+import type { Business, SocialNetwork } from '../../domain/model.ts';
+import BrandLogo from '../brand/BrandLogo.astro';
+import ExternalLink from '../ui/ExternalLink.astro';
+import Icon from '../ui/Icon.astro';
+
+interface Props {
+  business: Business;
+  year: number;
+  pricingNote?: string;
+  repositoryUrl?: string;
+}
+
+const { business, year, pricingNote, repositoryUrl } = Astro.props;
+
+const NETWORK_LABELS: Record<SocialNetwork, string> = {
+  facebook: 'Facebook',
+  instagram: 'Instagram',
+  linkedin: 'LinkedIn',
+  tiktok: 'TikTok',
+};
+
+const blurb = `Servicios digitales para negocios en ${business.areaServed}${
+  business.locality ? `, desde ${business.locality}` : ''
+}.`;
+---
+
+<footer class="site-footer">
+  <div class="container grid">
+    <div class="identity">
+      <BrandLogo name={business.name} tagline={business.tagline} />
+      <p class="muted">{blurb}</p>
+    </div>
+
+    {business.social.length > 0 && (
+      <ul role="list" class="social" aria-label="Redes sociales">
+        {business.social.map((entry) => (
+          <li>
+            <ExternalLink href={entry.url} class="social-link">
+              <Icon name={entry.network} size={18} />
+              <span>{NETWORK_LABELS[entry.network]}</span>
+            </ExternalLink>
+          </li>
+        ))}
+      </ul>
+    )}
+
+    <div class="legal">
+      {pricingNote && <p>{pricingNote}</p>}
+      <p>
+        © <time datetime={String(year)}>{year}</time> {business.name}.
+        {repositoryUrl && (
+          <>
+            {' '}
+            <ExternalLink href={repositoryUrl}>Código fuente</ExternalLink>
+          </>
+        )}
+      </p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    border-top: 1px solid var(--color-border);
+    padding-block: var(--space-7) var(--space-6);
+    color: var(--color-text-muted);
+    font-size: var(--text-sm);
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: var(--space-5) var(--space-6);
+    align-items: start;
+  }
+
+  .identity {
+    display: grid;
+    gap: var(--space-3);
+    font-size: var(--text-base);
+  }
+
+  .identity p {
+    font-size: var(--text-sm);
+  }
+
+  .social {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+  }
+
+  .social :global(.social-link) {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    min-height: 2.75rem;
+    padding-inline: var(--space-3);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-full);
+    color: var(--color-text);
+    text-decoration: none;
+  }
+
+  .legal {
+    grid-column: 1 / -1;
+    display: grid;
+    gap: var(--space-2);
+    padding-block-start: var(--space-5);
+    border-top: 1px solid var(--color-border);
+  }
+
+  @media (max-width: 40rem) {
+    .grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

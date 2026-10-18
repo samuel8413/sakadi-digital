@@ -1,0 +1,81 @@
+---
+/**
+ * The SAKADI DIGITAL isotype, redrawn as SVG from the logo: six nodes joined by
+ * arcs, "tecnología que conecta". Vector and inline, so it is sharp at any size,
+ * costs no request and follows the theme: the ink node and arcs use
+ * `--logo-ink`, which turns cream in dark mode; sage, forest and sky are fixed
+ * brand colours. `public/favicon.svg` carries the same geometry.
+ *
+ * Decorative by default (the wordmark next to it carries the name); pass
+ * `label` when the mark stands alone.
+ */
+interface Props {
+  size?: number;
+  label?: string;
+  class?: string;
+}
+
+const { size = 40, label, class: className } = Astro.props;
+---
+
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="13 8 363 378"
+  width={size}
+  height={Math.round((size * 378) / 363)}
+  class:list={['brand-mark', className]}
+  aria-hidden={label ? undefined : 'true'}
+  role={label ? 'img' : undefined}
+  aria-label={label}
+  focusable="false"
+>
+  <g fill="none" stroke-width="12" stroke-linecap="round">
+    <path class="ink" d="M57 145C120 70 210 34 315 52" />
+    <!-- Passes behind the ink arc, hence the break. -->
+    <path class="forest" d="M202 136C180 148 150 175 128 200" />
+    <path class="forest" d="M113 226C104 245 88 290 80 342" />
+    <path class="ink" d="M57 145C95 185 150 230 192 262" />
+    <path class="sage" d="M315 52L202 136" />
+    <path class="sage" d="M315 52C310 140 270 215 192 262" />
+    <path class="sky" d="M202 136C255 160 300 200 332 245" />
+    <path class="forest" d="M77 342L192 262" />
+    <path class="forest" d="M77 342C160 362 275 335 332 245" />
+  </g>
+  <circle class="ink" cx="57" cy="145" r="38" />
+  <circle class="sage" cx="315" cy="52" r="38" />
+  <circle class="sage" cx="202" cy="136" r="38" />
+  <circle class="sky" cx="332" cy="245" r="38" />
+  <circle class="forest" cx="192" cy="262" r="38" />
+  <circle class="forest" cx="77" cy="342" r="38" />
+</svg>
+
+<style>
+  .brand-mark {
+    flex-shrink: 0;
+    height: auto;
+  }
+
+  .ink {
+    --node: var(--logo-ink);
+  }
+
+  .forest {
+    --node: var(--brand-forest);
+  }
+
+  .sage {
+    --node: var(--brand-sage);
+  }
+
+  .sky {
+    --node: var(--brand-sky);
+  }
+
+  path {
+    stroke: var(--node);
+  }
+
+  circle {
+    fill: var(--node);
+  }
+</style>

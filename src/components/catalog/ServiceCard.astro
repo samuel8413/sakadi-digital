@@ -1,0 +1,288 @@
+---
+import type { Service } from '../../domain/model.ts';
+import ButtonLink from '../ui/ButtonLink.astro';
+import Card from '../ui/Card.astro';
+import Icon from '../ui/Icon.astro';
+import Price from '../ui/Price.astro';
+
+interface Props {
+  service: Service;
+}
+
+const { service } = Astro.props;
+const headingId = `${service.anchor}-titulo`;
+---
+
+<Card as="article" id={service.anchor} labelledby={headingId} featured={service.featured}>
+  {service.badge && <p class="badge">{service.badge}</p>}
+
+  <header class="head">
+    <h3 id={headingId}>{service.name}</h3>
+    <p class="summary">{service.summary}</p>
+  </header>
+
+  <dl class="facts">
+    {service.price && (
+      <div class="price">
+        <dt class="visually-hidden">Precio</dt>
+        <dd>
+          <Price price={service.price} />
+        </dd>
+      </div>
+    )}
+    <div class="fact">
+      <dt>
+        <Icon name="calendar" size={16} />
+        Entrega
+      </dt>
+      <dd>{service.delivery}</dd>
+    </div>
+    <div class="fact">
+      <dt>
+        <Icon name="users" size={16} />
+        Para quién
+      </dt>
+      <dd>{service.audience}</dd>
+    </div>
+  </dl>
+
+  <div class="block">
+    <h4>Incluye</h4>
+    <ul role="list" class="checklist">
+      {service.includes.map((item) => (
+        <li>
+          <Icon name="check" size={16} class="mark-yes" />
+          <span>{item}</span>
+        </li>
+      ))}
+    </ul>
+  </div>
+
+  {service.excludes.length > 0 && (
+    <details class="block">
+      <summary>
+        <span>Qué no incluye</span>
+        <Icon name="chevron-down" size={16} class="chevron" />
+      </summary>
+      <ul role="list" class="checklist">
+        {service.excludes.map((item) => (
+          <li>
+            <Icon name="x" size={16} class="mark-no" />
+            <span>{item}</span>
+          </li>
+        ))}
+      </ul>
+    </details>
+  )}
+
+  {service.extras.length > 0 && (
+    <div class="block">
+      <h4>Extras</h4>
+      <ul role="list" class="extras">
+        {service.extras.map((extra) => (
+          <li>
+            <span>{extra.label}</span>
+            {extra.price && <span class="extra-price">{extra.price.label}</span>}
+          </li>
+        ))}
+      </ul>
+    </div>
+  )}
+
+  {(service.stack || service.thirdPartyCosts || service.requiredPlan) && (
+    <div class="notes">
+      {service.stack && (
+        <p>
+          <Icon name="code" size={16} />
+          <span>
+            <span class="visually-hidden">Tecnología: </span>
+            {service.stack}
+          </span>
+        </p>
+      )}
+      {service.thirdPartyCosts && (
+        <p>
+          <Icon name="layers" size={16} />
+          <span>
+            <strong>Costos de terceros:</strong> {service.thirdPartyCosts}
+          </span>
+        </p>
+      )}
+      {service.requiredPlan && (
+        <p>
+          <Icon name="tool" size={16} />
+          <span>
+            Requiere plan de mantenimiento{' '}
+            <a href={`#${service.requiredPlan.anchor}`}>{service.requiredPlan.name}</a> o superior.
+          </span>
+        </p>
+      )}
+    </div>
+  )}
+
+  <div class="cta">
+    <ButtonLink
+      href={service.inquiryHref}
+      icon="whatsapp"
+      variant={service.featured ? 'primary' : 'secondary'}
+      context={service.name}
+    >
+      Cotizar
+    </ButtonLink>
+  </div>
+</Card>
+
+<style>
+  .badge {
+    align-self: flex-start;
+    padding: var(--space-1) var(--space-3);
+    border-radius: var(--radius-full);
+    background: var(--color-accent-soft);
+    color: var(--color-text);
+    font-size: var(--text-xs);
+    font-weight: 700;
+    letter-spacing: var(--tracking-caps);
+    text-transform: uppercase;
+  }
+
+  h3 {
+    font-size: var(--text-xl);
+  }
+
+  .summary {
+    margin-block-start: var(--space-2);
+    color: var(--color-text-muted);
+  }
+
+  .facts {
+    display: grid;
+    gap: var(--space-3);
+    padding-block: var(--space-4);
+    border-block: 1px solid var(--color-border);
+  }
+
+  .fact {
+    display: grid;
+    gap: var(--space-1);
+    font-size: var(--text-sm);
+  }
+
+  .fact dt {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-weight: 600;
+    color: var(--color-accent);
+  }
+
+  dd {
+    margin: 0;
+  }
+
+  h4,
+  summary {
+    font-size: var(--text-sm);
+    font-weight: 700;
+    letter-spacing: var(--tracking-caps);
+    text-transform: uppercase;
+  }
+
+  .checklist {
+    display: grid;
+    gap: var(--space-2);
+    margin-block-start: var(--space-3);
+    font-size: var(--text-sm);
+  }
+
+  .checklist li {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: var(--space-2);
+  }
+
+  .checklist :global(.icon) {
+    margin-block-start: 0.2em;
+  }
+
+  .checklist :global(.mark-yes) {
+    color: var(--color-positive);
+  }
+
+  .checklist :global(.mark-no) {
+    color: var(--color-text-muted);
+  }
+
+  summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-2);
+    min-height: 2.75rem;
+    cursor: pointer;
+    list-style: none;
+  }
+
+  summary::-webkit-details-marker {
+    display: none;
+  }
+
+  summary :global(.chevron) {
+    transition: transform var(--duration) var(--ease);
+  }
+
+  details[open] summary :global(.chevron) {
+    transform: rotate(180deg);
+  }
+
+  .extras {
+    display: grid;
+    gap: var(--space-2);
+    margin-block-start: var(--space-3);
+    font-size: var(--text-sm);
+  }
+
+  .extras li {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: var(--space-1) var(--space-3);
+  }
+
+  .extra-price {
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .notes {
+    display: grid;
+    gap: var(--space-2);
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+  }
+
+  .notes p {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: var(--space-2);
+  }
+
+  .notes :global(.icon) {
+    margin-block-start: 0.2em;
+    color: var(--color-accent);
+  }
+
+  .notes strong {
+    color: var(--color-text);
+    font-weight: 600;
+  }
+
+  /* Pin the CTA to the bottom so buttons line up across a row of cards. */
+  .cta {
+    margin-block-start: auto;
+    padding-block-start: var(--space-2);
+  }
+
+  .cta :global(.button) {
+    width: 100%;
+  }
+</style>

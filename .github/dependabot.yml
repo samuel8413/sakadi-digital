@@ -1,0 +1,33 @@
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+    groups:
+      astro:
+        patterns: ['astro', '@astrojs/*', '@fontsource-variable/*']
+      tooling:
+        patterns:
+          [
+            'eslint*',
+            '@eslint/*',
+            'typescript-eslint',
+            'prettier*',
+            'vitest',
+            '@playwright/test',
+            '@axe-core/*',
+          ]
+    open-pull-requests-limit: 5
+    ignore:
+      # Must track the runtime pinned in .nvmrc, not the newest Node release.
+      - dependency-name: '@types/node'
+        update-types: ['version-update:semver-major']
+      # typescript-eslint declares a supported TypeScript range; bump manually when it widens.
+      - dependency-name: 'typescript'
+        update-types: ['version-update:semver-major']
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: monthly

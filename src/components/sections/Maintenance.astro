@@ -1,0 +1,53 @@
+---
+import type { Landing } from '../../domain/model.ts';
+import PlanCard from '../catalog/PlanCard.astro';
+import RuleList from '../catalog/RuleList.astro';
+import Section from '../ui/Section.astro';
+
+interface Props {
+  maintenance: Landing['maintenance'];
+}
+
+const { maintenance } = Astro.props;
+---
+
+<Section
+  id="mantenimiento"
+  eyebrow="Planes mensuales"
+  title="Mantenimiento y hosting"
+  lead={maintenance.intro}
+  tone="muted"
+>
+  {maintenance.quote && (
+    <blockquote>
+      <p>{maintenance.quote}</p>
+    </blockquote>
+  )}
+
+  <div class="plans">
+    {maintenance.plans.map((plan) => (
+      <PlanCard plan={plan} />
+    ))}
+  </div>
+
+  <RuleList rules={maintenance.rules} label="Condiciones de los planes de mantenimiento" />
+</Section>
+
+<style>
+  blockquote {
+    max-width: var(--measure);
+    margin-block-end: var(--space-7);
+    padding-inline-start: var(--space-5);
+    border-inline-start: 4px solid var(--brand-sage);
+    font-size: var(--text-lg);
+    line-height: var(--leading-snug);
+    font-style: italic;
+  }
+
+  .plans {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
+    gap: var(--space-5);
+    align-items: stretch;
+  }
+</style>

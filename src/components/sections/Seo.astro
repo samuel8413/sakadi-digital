@@ -1,0 +1,86 @@
+---
+import type { Landing } from '../../domain/model.ts';
+import PlanCard from '../catalog/PlanCard.astro';
+import RuleList from '../catalog/RuleList.astro';
+import Icon from '../ui/Icon.astro';
+import Price from '../ui/Price.astro';
+import Section from '../ui/Section.astro';
+
+interface Props {
+  seo: Landing['seo'];
+}
+
+const { seo } = Astro.props;
+const { audit } = seo;
+---
+
+<Section
+  id="seo"
+  eyebrow="Planes mensuales"
+  title="Posicionamiento en Google (SEO)"
+  lead={seo.intro}
+>
+  <div class="audit">
+    <Icon name="trending-up" size={28} class="audit-icon" />
+    <div>
+      <h3>{audit.label}</h3>
+      <p>{audit.description}</p>
+    </div>
+    {audit.price && (
+      <p class="audit-price">
+        <Price price={audit.price} size="md" />
+      </p>
+    )}
+  </div>
+
+  <div class="plans">
+    {seo.plans.map((plan) => (
+      <PlanCard plan={plan} />
+    ))}
+  </div>
+
+  <RuleList rules={seo.rules} label="Condiciones de los planes de SEO" />
+</Section>
+
+<style>
+  .audit {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: center;
+    gap: var(--space-4) var(--space-5);
+    margin-block-end: var(--space-7);
+    padding: var(--space-5);
+    border: 1px dashed var(--color-border-strong);
+    border-radius: var(--radius-lg);
+    background: var(--color-highlight);
+  }
+
+  .audit :global(.audit-icon) {
+    color: var(--color-accent);
+  }
+
+  .audit h3 {
+    font-size: var(--text-lg);
+  }
+
+  .audit p {
+    color: var(--color-text-muted);
+  }
+
+  .audit .audit-price {
+    color: var(--color-text);
+  }
+
+  .plans {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr));
+    gap: var(--space-5);
+    align-items: stretch;
+  }
+
+  @media (max-width: 40rem) {
+    .audit {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

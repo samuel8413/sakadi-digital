@@ -1,0 +1,139 @@
+---
+import type { Landing } from '../../domain/model.ts';
+import Card from '../ui/Card.astro';
+import Icon, { type IconName } from '../ui/Icon.astro';
+import Section from '../ui/Section.astro';
+
+interface Props {
+  positioning: Landing['positioning'];
+  businessName: string;
+}
+
+const { positioning, businessName } = Astro.props;
+const { proofPoints, comparison } = positioning;
+
+/** Icons follow proof-point order; they are decoration, so a short fixed list is enough. */
+const ICONS: readonly IconName[] = ['key', 'zap', 'tool', 'trending-up'];
+---
+
+<Section
+  id="por-que"
+  eyebrow={`Por qué ${businessName}`}
+  title="Lo que no te dan una plantilla ni un WordPress mal hecho"
+>
+  {proofPoints.length > 0 && (
+    <ul role="list" class="points">
+      {proofPoints.map((point, index) => (
+        <Card as="li">
+          <Icon name={ICONS[index % ICONS.length] ?? 'check'} size={24} class="point-icon" />
+          <h3>{point.title}</h3>
+          <p>{point.description}</p>
+        </Card>
+      ))}
+    </ul>
+  )}
+
+  {/* Scrolls sideways on small screens; focusable so keyboard users can scroll it too. */}
+  <div class="table-scroll" role="region" aria-labelledby="comparativa-titulo" tabindex="0">
+    <table>
+      <caption id="comparativa-titulo">{comparison.caption}</caption>
+      <thead>
+        <tr>
+          <td></td>
+          {comparison.alternatives.map((alternative) => (
+            <th scope="col">{alternative}</th>
+          ))}
+          <th scope="col" class="us">
+            {businessName}
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        {comparison.rows.map((row) => (
+          <tr>
+            <th scope="row">{row.label}</th>
+            {row.alternatives.map((value) => (
+              <td>{value}</td>
+            ))}
+            <td class="us">{row.us}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+</Section>
+
+<style>
+  .points {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+    gap: var(--space-4);
+    margin-block-end: var(--space-8);
+  }
+
+  .points :global(.point-icon) {
+    color: var(--color-accent);
+  }
+
+  .points h3 {
+    font-size: var(--text-lg);
+  }
+
+  .points p {
+    color: var(--color-text-muted);
+    font-size: var(--text-sm);
+  }
+
+  .table-scroll {
+    overflow-x: auto;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    background: var(--color-surface);
+  }
+
+  table {
+    width: 100%;
+    min-width: 44rem;
+    border-collapse: collapse;
+    font-size: var(--text-sm);
+  }
+
+  caption {
+    padding: var(--space-4) var(--space-5);
+    text-align: start;
+    font-weight: 700;
+    font-size: var(--text-base);
+  }
+
+  th,
+  td {
+    padding: var(--space-3) var(--space-4);
+    text-align: start;
+    vertical-align: top;
+    border-top: 1px solid var(--color-border);
+  }
+
+  thead th {
+    font-weight: 600;
+    color: var(--color-text-muted);
+  }
+
+  tbody th {
+    font-weight: 600;
+    width: 22%;
+  }
+
+  td {
+    color: var(--color-text-muted);
+  }
+
+  .us {
+    background: var(--color-accent-soft);
+    color: var(--color-text);
+    font-weight: 600;
+  }
+
+  thead .us {
+    color: var(--color-text);
+  }
+</style>

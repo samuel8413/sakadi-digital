@@ -1,0 +1,109 @@
+---
+import { getImage } from 'astro:assets';
+import logo from '../assets/brand/logo.jpeg';
+import SiteFooter from '../components/layout/SiteFooter.astro';
+import SiteHeader, { type NavItem } from '../components/layout/SiteHeader.astro';
+import SkipLink from '../components/layout/SkipLink.astro';
+import Addons from '../components/sections/Addons.astro';
+import Contact from '../components/sections/Contact.astro';
+import Faq from '../components/sections/Faq.astro';
+import Guide from '../components/sections/Guide.astro';
+import Hero from '../components/sections/Hero.astro';
+import Maintenance from '../components/sections/Maintenance.astro';
+import Process from '../components/sections/Process.astro';
+import Seo from '../components/sections/Seo.astro';
+import Services from '../components/sections/Services.astro';
+import Subscription from '../components/sections/Subscription.astro';
+import WhyUs from '../components/sections/WhyUs.astro';
+import JsonLd from '../components/seo/JsonLd.astro';
+import { buildYear, landing, siteConfig } from '../data/landing.ts';
+import { CONTACT_ANCHOR } from '../domain/contact.ts';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { buildBusinessSchema } from '../seo/business-schema.ts';
+import { toMetaDescription } from '../seo/description.ts';
+
+/**
+ * The landing page. Composition only: data comes from `data/landing.ts`,
+ * presentation from the section components. The nav is derived from the same
+ * list that decides what renders, so the two can never disagree.
+ */
+const { business, contact, positioning, faq } = landing;
+
+const sections: readonly (NavItem & { present: boolean })[] = [
+  { id: 'servicios', label: 'Servicios', present: landing.services.length > 0 },
+  { id: 'mantenimiento', label: 'Mantenimiento', present: landing.maintenance.plans.length > 0 },
+  { id: 'seo', label: 'SEO', present: landing.seo.plans.length > 0 },
+  { id: 'como-trabajamos', label: 'Cómo trabajamos', present: true },
+  { id: 'preguntas', label: 'Preguntas', present: faq.length > 0 },
+  { id: CONTACT_ANCHOR, label: 'Contacto', present: true },
+];
+const navItems = sections.filter((s) => s.present).map(({ id, label }) => ({ id, label }));
+
+const description = toMetaDescription(siteConfig.site.description ?? positioning.lead);
+
+// Social cards want one fixed-size file (1200×630), not a responsive set.
+const ogImage = await getImage({
+  src: logo,
+  width: 1200,
+  height: 630,
+  fit: 'cover',
+  format: 'jpg',
+  quality: 85,
+  layout: 'none',
+});
+const image = {
+  url: ogImage.src,
+  width: ogImage.attributes.width as number,
+  height: ogImage.attributes.height as number,
+  alt: `Logotipo de ${business.name}: ${business.tagline}`,
+};
+
+const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site).href : undefined;
+const businessSchema = buildBusinessSchema(landing, {
+  url: canonical,
+  logoUrl: Astro.site ? new URL(ogImage.src, Astro.site).href : undefined,
+  description,
+  locale: siteConfig.site.locale,
+  currency: siteConfig.pricing.currency,
+});
+---
+
+<BaseLayout
+  title={siteConfig.site.title}
+  description={description}
+  image={image}
+  lang={siteConfig.site.locale}
+  siteName={business.name}
+>
+  <JsonLd slot="head" data={businessSchema} />
+
+  <SkipLink />
+  <SiteHeader name={business.name} items={navItems} inquiryHref={contact.inquiryHref} />
+
+  <main id="main" tabindex="-1">
+    <Hero positioning={positioning} tagline={business.tagline} inquiryHref={contact.inquiryHref} />
+    <WhyUs positioning={positioning} businessName={business.name} />
+    <Guide guide={landing.guide} />
+    <Services services={landing.services} pricingNote={landing.pricingNote} />
+    <Maintenance maintenance={landing.maintenance} />
+    <Seo seo={landing.seo} />
+    <Subscription subscription={landing.subscription} />
+    <Addons addons={landing.addons} />
+    <Process process={landing.process} />
+    <Faq entries={faq} />
+    <Contact contact={contact} />
+  </main>
+
+  <SiteFooter
+    business={business}
+    year={buildYear}
+    pricingNote={landing.pricingNote}
+    repositoryUrl={siteConfig.site.repositoryUrl}
+  />
+</BaseLayout>
+
+<style>
+  main:focus {
+    outline: none;
+  }
+</style>

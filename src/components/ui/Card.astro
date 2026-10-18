@@ -1,0 +1,65 @@
+---
+/**
+ * Surface for one offering or idea. `article` when it stands alone (a service,
+ * a plan) so it can be labelled and linked to; `div` for supporting content.
+ */
+interface Props {
+  as?: 'article' | 'div' | 'li';
+  id?: string;
+  /** Id of the card's heading, for `aria-labelledby`. */
+  labelledby?: string;
+  /** Visually recommended option: stronger border and a ribbon slot. */
+  featured?: boolean;
+  class?: string;
+}
+
+const { as: Tag = 'div', id, labelledby, featured = false, class: className } = Astro.props;
+---
+
+<Tag
+  id={id}
+  aria-labelledby={labelledby}
+  class:list={['card', { featured }, className]}
+  tabindex={id ? -1 : undefined}
+>
+  <slot />
+</Tag>
+
+<style>
+  .card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    padding: var(--space-5);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    background: var(--color-surface);
+    box-shadow: var(--shadow-sm);
+    /* Anchored cards land below the sticky header. */
+    scroll-margin-top: 6rem;
+  }
+
+  .card:focus {
+    outline: none;
+  }
+
+  /* In-page links to an offering highlight its card. */
+  .card:target {
+    border-color: var(--color-accent);
+    box-shadow:
+      0 0 0 3px var(--color-highlight),
+      var(--shadow-md);
+  }
+
+  .featured {
+    border: 2px solid var(--color-accent);
+    box-shadow: var(--shadow-md);
+  }
+
+  @media (max-width: 60rem) {
+    .card {
+      scroll-margin-top: 8.5rem;
+    }
+  }
+</style>

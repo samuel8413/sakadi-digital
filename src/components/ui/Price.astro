@@ -1,0 +1,62 @@
+---
+import type { PriceTag } from '../../domain/model.ts';
+
+/**
+ * A price set for scanning: the amount large, "Desde" and "/mes" small, so
+ * prices line up across cards and do not wrap mid-amount. Screen readers get
+ * the same words in order.
+ */
+interface Props {
+  price: PriceTag;
+  size?: 'md' | 'lg';
+}
+
+const { price, size = 'lg' } = Astro.props;
+---
+
+<span class:list={['price', `size-${size}`]}>
+  {price.prefix && <span class="prefix">{price.prefix} </span>}
+  <span class="amount">{price.amount}</span>
+  {price.qualifier && <span class="qualifier"> {price.qualifier}</span>}
+</span>
+
+<style>
+  .price {
+    display: inline-flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    column-gap: var(--space-2);
+    line-height: 1.1;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .prefix {
+    flex-basis: 100%;
+    font-size: var(--text-xs);
+    font-weight: 700;
+    letter-spacing: var(--tracking-caps);
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+    margin-block-end: var(--space-1);
+  }
+
+  .amount {
+    font-weight: 700;
+    letter-spacing: var(--tracking-display);
+    white-space: nowrap;
+  }
+
+  .size-lg .amount {
+    font-size: var(--text-2xl);
+  }
+
+  .size-md .amount {
+    font-size: var(--text-lg);
+  }
+
+  .qualifier {
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--color-text-muted);
+  }
+</style>

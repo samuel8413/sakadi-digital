@@ -1,0 +1,12 @@
+{
+  "extends": "astro/tsconfigs/strict",
+  "compilerOptions": {
+    "erasableSyntaxOnly": true,
+    "noUncheckedIndexedAccess": true,
+    "noImplicitOverride": true,
+    "exactOptionalPropertyTypes": false,
+    "types": ["node", "astro/client"]
+  },
+  "include": [".astro/types.d.ts", "src/**/*", "scripts/**/*", "tests/**/*", "*.ts"],
+  "exclude": ["dist", "node_modules"]
+}

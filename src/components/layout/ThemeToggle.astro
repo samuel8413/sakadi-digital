@@ -1,0 +1,81 @@
+---
+import Icon from '../ui/Icon.astro';
+
+/**
+ * Two-state toggle persisted in localStorage. The boot script in BaseLayout
+ * applies the stored value before first paint, so this component only has to
+ * reflect and flip it. Uses `aria-pressed` (a toggle button), not a switch,
+ * because it is a button that changes its own state.
+ */
+---
+
+<button
+  type="button"
+  class="theme-toggle"
+  data-theme-toggle
+  aria-pressed="false"
+  aria-label="Modo oscuro"
+>
+  <Icon name="sun" class="icon-sun" />
+  <Icon name="moon" class="icon-moon" />
+</button>
+
+<script>
+  import { getResolvedTheme, setTheme, THEME_STORAGE_KEY, type Theme } from '../../scripts/theme';
+
+  const buttons = document.querySelectorAll<HTMLButtonElement>('[data-theme-toggle]');
+
+  const render = () => {
+    const dark = getResolvedTheme() === 'dark';
+    for (const button of buttons) button.setAttribute('aria-pressed', String(dark));
+  };
+
+  for (const button of buttons) {
+    button.addEventListener('click', () => {
+      const next: Theme = getResolvedTheme() === 'dark' ? 'light' : 'dark';
+      setTheme(next);
+      render();
+    });
+  }
+
+  // Keep tabs in sync when the choice changes elsewhere.
+  window.addEventListener('storage', (event) => {
+    if (event.key === THEME_STORAGE_KEY) render();
+  });
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', render);
+
+  render();
+</script>
+
+<style>
+  .theme-toggle {
+    display: inline-grid;
+    place-items: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-full);
+    background: var(--color-surface);
+    cursor: pointer;
+    transition:
+      background var(--duration) var(--ease),
+      border-color var(--duration) var(--ease);
+  }
+
+  .theme-toggle:hover {
+    border-color: var(--color-border-strong);
+  }
+
+  .theme-toggle > :global(.icon) {
+    grid-area: 1 / 1;
+    transition:
+      opacity var(--duration) var(--ease),
+      transform var(--duration) var(--ease);
+  }
+
+  .theme-toggle[aria-pressed='false'] > :global(.icon-moon),
+  .theme-toggle[aria-pressed='true'] > :global(.icon-sun) {
+    opacity: 0;
+    transform: scale(0.6) rotate(-30deg);
+  }
+</style>

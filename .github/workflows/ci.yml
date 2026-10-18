@@ -1,0 +1,88 @@
+# Quality gate. Runs on every push and pull request, and is reused by deploy.yml
+# so production can never skip a check that PRs have to pass.
+name: CI
+
+on:
+  push:
+    branches-ignore: [main]
+  pull_request:
+  workflow_call:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  quality:
+    name: Lint, types, unit tests, build
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      - run: npm ci
+
+      - name: Validate content (report mode)
+        run: npm run content:check
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Format check
+        run: npm run format:check
+
+      - name: Type check (TypeScript + Astro templates)
+        run: npm run check
+
+      - name: Unit tests
+        run: npm run test:coverage
+
+      - name: Build
+        run: npm run build
+
+      - uses: actions/upload-artifact@v7
+        with:
+          name: site-ci
+          path: dist
+          retention-days: 3
+
+  e2e:
+    name: Accessibility, SEO and CSP (Playwright)
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    needs: quality
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      - run: npm ci
+
+      - uses: actions/download-artifact@v8
+        with:
+          name: site-ci
+          path: dist
+
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Run e2e suite against the built site
+        run: npm run test:e2e
+
+      - uses: actions/upload-artifact@v7
+        if: failure()
+        with:
+          name: playwright-report
+          path: playwright-report
+          retention-days: 7

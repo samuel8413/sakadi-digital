@@ -1,0 +1,88 @@
+---
+import { slugify } from '../../domain/slug.ts';
+
+/**
+ * Page section with the landmark wiring done once: `aria-labelledby` points at
+ * the heading, and the id doubles as the in-page navigation anchor.
+ */
+interface Props {
+  id: string;
+  title: string;
+  eyebrow?: string;
+  /** Introductory paragraph under the heading. */
+  lead?: string;
+  /** Alternate background so long pages read as distinct bands. */
+  tone?: 'default' | 'muted';
+}
+
+const { id, title, eyebrow, lead, tone = 'default' } = Astro.props;
+const headingId = slugify(id, 'titulo');
+---
+
+<section id={id} aria-labelledby={headingId} class:list={['section', `tone-${tone}`]}>
+  <div class="container">
+    <header class="section-header">
+      {eyebrow && <p class="eyebrow">{eyebrow}</p>}
+      <h2 id={headingId}>{title}</h2>
+      {lead && <p class="lead">{lead}</p>}
+    </header>
+    <slot />
+  </div>
+</section>
+
+<style>
+  .section {
+    padding-block: var(--space-9);
+  }
+
+  .tone-muted {
+    background: var(--color-surface-muted);
+  }
+
+  .section-header {
+    max-width: 48rem;
+    margin-block-end: var(--space-7);
+  }
+
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    color: var(--color-accent);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    letter-spacing: var(--tracking-caps);
+    text-transform: uppercase;
+    margin-block-end: var(--space-3);
+  }
+
+  /* The logo's sky node, as a bullet. */
+  .eyebrow::before {
+    content: '';
+    width: 0.6rem;
+    height: 0.6rem;
+    border-radius: var(--radius-full);
+    background: var(--brand-sky);
+  }
+
+  h2 {
+    font-size: var(--text-2xl);
+  }
+
+  .lead {
+    margin-block-start: var(--space-4);
+    font-size: var(--text-lg);
+    color: var(--color-text-muted);
+    max-width: var(--measure);
+  }
+
+  @media (max-width: 40rem) {
+    .section {
+      padding-block: var(--space-8);
+    }
+
+    .section-header {
+      margin-block-end: var(--space-6);
+    }
+  }
+</style>

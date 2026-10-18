@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-4 7 380 380" role="img" aria-label="SAKADI DIGITAL">
+  <style>
+    path.ink { stroke: #133d39 } circle.ink { fill: #133d39 }
+    @media (prefers-color-scheme: dark) { path.ink { stroke: #faf3e8 } circle.ink { fill: #faf3e8 } }
+  </style>
+  <g fill="none" stroke-width="16" stroke-linecap="round">
+    <path class="ink" d="M57 145C120 70 210 34 315 52"/>
+    <path stroke="#416a5c" d="M202 136C180 148 150 175 128 200M113 226C104 245 88 290 80 342M77 342L192 262M77 342C160 362 275 335 332 245"/>
+    <path class="ink" d="M57 145C95 185 150 230 192 262"/>
+    <path stroke="#7fa282" d="M315 52L202 136M315 52C310 140 270 215 192 262"/>
+    <path stroke="#85c4d3" d="M202 136C255 160 300 200 332 245"/>
+  </g>
+  <circle class="ink" cx="57" cy="145" r="42"/>
+  <circle fill="#7fa282" cx="315" cy="52" r="42"/>
+  <circle fill="#7fa282" cx="202" cy="136" r="42"/>
+  <circle fill="#85c4d3" cx="332" cy="245" r="42"/>
+  <circle fill="#416a5c" cx="192" cy="262" r="42"/>
+  <circle fill="#416a5c" cx="77" cy="342" r="42"/>
+</svg>

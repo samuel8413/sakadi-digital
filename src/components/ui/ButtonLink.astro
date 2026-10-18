@@ -1,0 +1,94 @@
+---
+import ExternalLink from './ExternalLink.astro';
+import Icon, { type IconName } from './Icon.astro';
+
+/**
+ * Call-to-action styled as a button but semantically a link (it navigates:
+ * to WhatsApp, an email client or an in-page anchor). Off-site destinations go
+ * through `ExternalLink`, so they open in a new tab with the safe `rel` pair
+ * and announce it.
+ */
+interface Props {
+  href: string;
+  variant?: 'primary' | 'secondary';
+  size?: 'sm' | 'md';
+  icon?: IconName;
+  class?: string;
+  /**
+   * Screen-reader-only words appended to the visible label when it is ambiguous
+   * on its own: a page with ten "Cotizar" buttons reads "Cotizar Landing Page Pro".
+   * Text rather than `aria-label`, so the "new tab" notice is kept.
+   */
+  context?: string;
+}
+
+const { href, variant = 'primary', size = 'md', icon, class: className, context } = Astro.props;
+const classes = ['button', `variant-${variant}`, `size-${size}`, className];
+const external = /^https?:\/\//.test(href);
+---
+
+{external ? (
+  <ExternalLink href={href} class:list={classes}>
+    {icon && <Icon name={icon} size={size === 'sm' ? 16 : 18} />}
+    <slot />
+    {context && <span class="visually-hidden"> {context}</span>}
+  </ExternalLink>
+) : (
+  <a href={href} class:list={classes}>
+    {icon && <Icon name={icon} size={size === 'sm' ? 16 : 18} />}
+    <slot />
+    {context && <span class="visually-hidden"> {context}</span>}
+  </a>
+)}
+
+<style>
+  .button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    min-height: 2.75rem;
+    padding-inline: var(--space-5);
+    border: 1px solid transparent;
+    border-radius: var(--radius-full);
+    font-weight: 600;
+    text-decoration: none;
+    white-space: nowrap;
+    transition:
+      background var(--duration) var(--ease),
+      border-color var(--duration) var(--ease),
+      color var(--duration) var(--ease),
+      transform var(--duration) var(--ease);
+  }
+
+  .button:hover {
+    transform: translateY(-1px);
+  }
+
+  .size-sm {
+    min-height: 2.5rem;
+    padding-inline: var(--space-4);
+    font-size: var(--text-sm);
+  }
+
+  .variant-primary {
+    background: var(--color-button);
+    color: var(--color-on-accent);
+  }
+
+  .variant-primary:hover {
+    background: var(--color-button-hover);
+    color: var(--color-on-accent);
+  }
+
+  .variant-secondary {
+    background: var(--color-surface);
+    border-color: var(--color-border-strong);
+    color: var(--color-text);
+  }
+
+  .variant-secondary:hover {
+    border-color: var(--color-accent);
+    color: var(--color-text);
+  }
+</style>

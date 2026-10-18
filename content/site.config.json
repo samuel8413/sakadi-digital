@@ -1,0 +1,44 @@
+{
+  "business": {
+    "name": "SAKADI DIGITAL",
+    "tagline": "Tecnología que conecta",
+    "areaServed": "México",
+    "locality": ""
+  },
+  "site": {
+    "url": "",
+    "title": "SAKADI DIGITAL | Sitios web, tiendas en línea y SEO en México",
+    "titleTemplate": "%s | SAKADI DIGITAL",
+    "description": "Sitios web rápidos y seguros, tiendas en línea, catálogos con pedidos por WhatsApp y SEO local para negocios en México. Con mantenimiento real.",
+    "locale": "es-MX",
+    "repositoryUrl": ""
+  },
+  "contact": {
+    "lead": "Cuéntanos de tu negocio y qué quieres lograr. Te respondemos con una recomendación y un rango de precio.",
+    "whatsapp": "",
+    "email": "",
+    "hours": "",
+    "messages": {
+      "general": "Hola, SAKADI DIGITAL. Me gustaría cotizar un proyecto para mi negocio.",
+      "service": "Hola, SAKADI DIGITAL. Me interesa {servicio}. ¿Me pueden dar más información?"
+    },
+    "prompts": [
+      "¿A qué se dedica tu negocio y quién es tu cliente ideal?",
+      "¿Qué quieres lograr: que te encuentren, recibir mensajes, mostrar productos o vender en línea?",
+      "¿Ya tienes sitio, dominio o perfil en Google?",
+      "¿Tienes textos, logo y fotos listos?",
+      "¿Para cuándo lo necesitas?"
+    ]
+  },
+  "social": {
+    "facebook": "",
+    "instagram": "",
+    "linkedin": "",
+    "tiktok": ""
+  },
+  "pricing": {
+    "display": "from",
+    "currency": "MXN",
+    "note": "Precios en pesos mexicanos (MXN), antes de IVA. Son de referencia: la cotización final depende del alcance."
+  }
+}

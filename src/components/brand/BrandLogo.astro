@@ -1,0 +1,84 @@
+---
+import BrandMark from './BrandMark.astro';
+
+/**
+ * Isotype + wordmark, laid out like the logo: a heavy, tight first word over a
+ * widely tracked second word ("SAKADI" / "DIGITAL"), optionally the tagline
+ * below. Live text in Montserrat rather than an image, so it stays crisp,
+ * themeable and readable by assistive tech.
+ */
+interface Props {
+  name: string;
+  tagline?: string;
+  size?: 'sm' | 'lg';
+}
+
+const { name, tagline, size = 'sm' } = Astro.props;
+const [primary = name, ...rest] = name.split(/\s+/);
+const secondary = rest.join(' ');
+---
+
+<span class:list={['brand-logo', `size-${size}`]}>
+  <BrandMark size={size === 'lg' ? 112 : 36} />
+  <span class="wordmark">
+    <span class="primary">{primary}</span>
+    {secondary && (
+      <>
+        {' '}
+        <span class="secondary">{secondary}</span>
+      </>
+    )}
+    {tagline && (
+      <>
+        {' '}
+        <span class="tagline">{tagline}</span>
+      </>
+    )}
+  </span>
+</span>
+
+<style>
+  .brand-logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6em;
+    color: var(--logo-ink);
+    line-height: 1;
+  }
+
+  .wordmark {
+    display: grid;
+    justify-items: start;
+    gap: 0.28em;
+  }
+
+  .primary {
+    font-weight: 800;
+    letter-spacing: 0.01em;
+    font-size: 1.25em;
+  }
+
+  .secondary {
+    font-weight: 600;
+    letter-spacing: var(--tracking-wide);
+    font-size: 0.62em;
+    /* Tracking adds space after the last letter too; pull it back so both words share an edge. */
+    margin-inline-end: calc(-1 * var(--tracking-wide));
+  }
+
+  .tagline {
+    margin-block-start: 0.35em;
+    font-weight: 500;
+    letter-spacing: var(--tracking-caps);
+    text-transform: uppercase;
+    font-size: 0.5em;
+  }
+
+  .size-sm {
+    font-size: 1rem;
+  }
+
+  .size-lg {
+    font-size: clamp(1.75rem, 1.2rem + 2.4vw, 2.75rem);
+  }
+</style>

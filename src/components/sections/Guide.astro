@@ -1,0 +1,76 @@
+---
+import type { Landing } from '../../domain/model.ts';
+import Card from '../ui/Card.astro';
+import Icon from '../ui/Icon.astro';
+import Section from '../ui/Section.astro';
+
+interface Props {
+  guide: Landing['guide'];
+}
+
+const { guide } = Astro.props;
+---
+
+<Section id="guia" eyebrow="Guía rápida" title="¿Qué necesitas?" lead={guide.intro} tone="muted">
+  <ul role="list" class="needs">
+    {guide.items.map((item) => (
+      <Card as="li">
+        <h3>{item.need}</h3>
+        <div>
+          <p class="label">Te recomendamos</p>
+          <ul role="list" class="recommendations">
+            {item.recommendations.map((ref) => (
+              <li>
+                <a href={`#${ref.anchor}`}>
+                  <Icon name="arrow-right" size={16} />
+                  {ref.name}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+        {item.note && <p class="note">{item.note}</p>}
+      </Card>
+    ))}
+  </ul>
+</Section>
+
+<style>
+  .needs {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr));
+    gap: var(--space-4);
+  }
+
+  h3 {
+    font-size: var(--text-lg);
+  }
+
+  .label {
+    font-size: var(--text-xs);
+    font-weight: 700;
+    letter-spacing: var(--tracking-caps);
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+  }
+
+  .recommendations {
+    display: grid;
+    gap: var(--space-1);
+    margin-block-start: var(--space-2);
+  }
+
+  .recommendations a {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    min-height: 2.25rem;
+    font-weight: 600;
+  }
+
+  .note {
+    margin-block-start: auto;
+    color: var(--color-text-muted);
+    font-size: var(--text-sm);
+  }
+</style>

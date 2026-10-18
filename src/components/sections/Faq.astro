@@ -1,0 +1,83 @@
+---
+import type { FaqEntry } from '../../domain/model.ts';
+import Icon from '../ui/Icon.astro';
+import Section from '../ui/Section.astro';
+
+interface Props {
+  entries: readonly FaqEntry[];
+}
+
+const { entries } = Astro.props;
+---
+
+{entries.length > 0 && (
+  <Section
+    id="preguntas"
+    eyebrow="Preguntas frecuentes"
+    title="Lo que nos preguntan antes de empezar"
+  >
+    <div class="faq">
+      {entries.map((entry) => (
+        <details>
+          <summary>
+            <span>{entry.question}</span>
+            <Icon name="chevron-down" size={20} class="chevron" />
+          </summary>
+          <div class="answer prose">
+            {entry.answer.map((paragraph) => (
+              <p>{paragraph}</p>
+            ))}
+          </div>
+        </details>
+      ))}
+    </div>
+  </Section>
+)}
+
+<style>
+  .faq {
+    display: grid;
+    gap: var(--space-3);
+    max-width: 52rem;
+  }
+
+  details {
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background: var(--color-surface);
+  }
+
+  details[open] {
+    border-color: var(--color-border-strong);
+  }
+
+  summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+    min-height: 3.5rem;
+    padding: var(--space-3) var(--space-5);
+    font-weight: 600;
+    cursor: pointer;
+    list-style: none;
+  }
+
+  summary::-webkit-details-marker {
+    display: none;
+  }
+
+  summary :global(.chevron) {
+    color: var(--color-accent);
+    transition: transform var(--duration) var(--ease);
+  }
+
+  details[open] summary :global(.chevron) {
+    transform: rotate(180deg);
+  }
+
+  .answer {
+    padding: 0 var(--space-5) var(--space-5);
+    color: var(--color-text-muted);
+  }
+</style>

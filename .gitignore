@@ -1,0 +1,24 @@
+# build output
+dist/
+# generated types
+.astro/
+
+# dependencies
+node_modules/
+
+# test artefacts
+coverage/
+playwright-report/
+test-results/
+
+# logs
+npm-debug.log*
+
+# environment variables
+.env
+.env.*
+!.env.example
+
+# OS / editors
+.DS_Store
+.idea/

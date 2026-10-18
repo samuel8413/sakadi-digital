@@ -1,0 +1,148 @@
+---
+import type { Landing } from '../../domain/model.ts';
+import Icon from '../ui/Icon.astro';
+import Section from '../ui/Section.astro';
+
+interface Props {
+  process: Landing['process'];
+}
+
+const { process } = Astro.props;
+---
+
+<Section
+  id="como-trabajamos"
+  eyebrow="Proceso"
+  title="Cómo trabajamos"
+  lead="Alcance por escrito, pagos claros y todo a tu nombre. Así protegemos tu proyecto y el nuestro."
+  tone="muted"
+>
+  <ol class="steps">
+    {process.steps.map((step) => (
+      <li>
+        <h3>{step.title}</h3>
+        <p>{step.description}</p>
+      </li>
+    ))}
+  </ol>
+
+  <div class="columns">
+    {process.payments.length > 0 && (
+      <div>
+        <h3 class="subhead">Esquema de pagos</h3>
+        <dl class="payments">
+          {process.payments.map((payment) => (
+            <div>
+              <dt>{payment.when}</dt>
+              <dd>{payment.scheme}</dd>
+            </div>
+          ))}
+        </dl>
+      </div>
+    )}
+
+    {process.guarantees.length > 0 && (
+      <div>
+        <h3 class="subhead">Garantías</h3>
+        <ul role="list" class="guarantees">
+          {process.guarantees.map((guarantee) => (
+            <li>
+              <Icon name="shield" size={20} />
+              <span>{guarantee}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    )}
+  </div>
+</Section>
+
+<style>
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
+    gap: var(--space-5);
+    padding: 0;
+    list-style: none;
+    counter-reset: step;
+  }
+
+  .steps li {
+    counter-increment: step;
+    display: grid;
+    gap: var(--space-2);
+    align-content: start;
+  }
+
+  /* Numbered nodes, echoing the logo's connected circles. */
+  .steps li::before {
+    content: counter(step);
+    display: grid;
+    place-items: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: var(--radius-full);
+    background: var(--color-button);
+    color: var(--color-on-accent);
+    font-weight: 700;
+    margin-block-end: var(--space-2);
+  }
+
+  .steps h3 {
+    font-size: var(--text-lg);
+  }
+
+  .steps p {
+    color: var(--color-text-muted);
+    font-size: var(--text-sm);
+  }
+
+  .columns {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr));
+    gap: var(--space-6);
+    margin-block-start: var(--space-8);
+  }
+
+  .subhead {
+    font-size: var(--text-lg);
+    margin-block-end: var(--space-4);
+  }
+
+  .payments {
+    display: grid;
+    gap: var(--space-3);
+  }
+
+  .payments div {
+    padding: var(--space-4);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background: var(--color-surface);
+  }
+
+  dt {
+    font-weight: 600;
+  }
+
+  dd {
+    margin: var(--space-1) 0 0;
+    color: var(--color-text-muted);
+    font-size: var(--text-sm);
+  }
+
+  .guarantees {
+    display: grid;
+    gap: var(--space-3);
+  }
+
+  .guarantees li {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: var(--space-3);
+  }
+
+  .guarantees :global(.icon) {
+    color: var(--color-accent);
+  }
+</style>
